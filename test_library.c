@@ -3,62 +3,64 @@
 #include <assert.h>
 #include <string.h>
 
-void assertStrEqual(char *expected, char *actual) {
+void assertStrEqual(char *expected, char *actual)
+{
     assert(strcmp(expected, actual) == 0);
 }
 
-void test_adicionar_livro() {
-    Acervo *acervo = criarAcervo();
+void test_adicionar_livro()
+{
+    Acervo acervo = {};
     Livro livro1 = {"Linguagem C", "Luís Damas", "literatura técnica"};
 
-    adicionarLivro(acervo, livro1);
+    adicionarLivro(&acervo, livro1);
 
-    assert(acervo->quantidade == 1);
-    assertStrEqual(acervo->livros[0].titulo, "Linguagem C");
-    assertStrEqual(acervo->livros[0].autor, "Luís Damas");
-    assertStrEqual(acervo->livros[0].genero, "literatura técnica");
-
-    printf("Teste adicionarLivro: OK\n");
+    assert(acervo.quantidade == 1);
+    assertStrEqual(acervo.livros[0].titulo, "Linguagem C");
+    assertStrEqual(acervo.livros[0].autor, "Luís Damas");
+    assertStrEqual(acervo.livros[0].genero, "literatura técnica");
 }
 
-void test_atualizar_livro() {
-    Acervo *acervo = criarAcervo();
+void test_atualizar_livro()
+{
+    Acervo acervo = {};
     Livro livro1 = {"Linguagem C", "Luís Damas", "literatura técnica"};
-    adicionarLivro(acervo, livro1);
+    adicionarLivro(&acervo, livro1);
     Livro livroSubstituto = {"Java Beginner's Guide", "Herbert Schildt", "literatura técnica"};
 
-    atualizarLivro(acervo, 0, livroSubstituto);
+    atualizarLivro(&acervo, 0, livroSubstituto);
 
-    assert(acervo->quantidade == 1);
-    assertStrEqual(acervo->livros[0].titulo, "Java Beginner's Guide");
-    assertStrEqual(acervo->livros[0].autor, "Herbert Schildt");
-    assertStrEqual(acervo->livros[0].genero, "literatura técnica");
-
-    printf("Teste atualizarLivro: OK\n");
+    assert(acervo.quantidade == 1);
+    assertStrEqual(acervo.livros[0].titulo, "Java Beginner's Guide");
+    assertStrEqual(acervo.livros[0].autor, "Herbert Schildt");
+    assertStrEqual(acervo.livros[0].genero, "literatura técnica");
 }
 
-void test_remover_livro() {
-    Acervo *acervo = criarAcervo();
+void test_remover_livro()
+{
+    Acervo acervo = {};
     Livro livro1 = {"jQuery", "Luís Soares", "literatura técnica"};
-    adicionarLivro(acervo, livro1);
+    adicionarLivro(&acervo, livro1);
 
-    removerLivro(acervo, 0);
+    removerLivro(&acervo, 0);
 
-    assert(acervo->quantidade == 0);
-
-    printf("Teste removerLivro: OK\n");
+    assert(acervo.quantidade == 0);
 }
 
-void test_pesquisar_livro() {
-
+void test_pesquisar_livro()
+{
 
     printf("Teste pesquisar_livro: OK\n");
 }
 
-int main() {
+int main()
+{
     test_adicionar_livro();
+    printf("Teste adicionarLivro: OK\n");
     test_atualizar_livro();
+    printf("Teste atualizarLivro: OK\n");
     test_remover_livro();
+    printf("Teste removerLivro: OK\n");
 
     printf("Todos os testes passaram com sucesso!\n");
 }
