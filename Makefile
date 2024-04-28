@@ -7,3 +7,6 @@ run: build
 test:
 	gcc -Wall library.c test_library.c -o test_library.exe
 	./test_library.exe
+
+	gcc -Wall test_cli.c -o test_cli.exe
+	./test_cli.exe

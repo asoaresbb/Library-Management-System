@@ -74,7 +74,7 @@ char pedirOpcaoMenu()
     printf("   -  Remover livro\n");
     printf("   e  Editar livro\n");
     printf("   p  Pesquisar livro\n");
-    printf("   l  Imprimir a lista de livros\n");
+    printf("   l  Listar livros\n");
     printf("   s  Sair do programa\n");
     char opcao[10];
     scanf("%s", opcao);
@@ -171,7 +171,7 @@ void imprimirListaLivros(Acervo *acervo)
     }
     for (int i = 0; i < acervo->quantidade; i++)
     {
-        printf("%d: %s (%s) \n", i + 1, acervo->livros[i].titulo, acervo->livros[i].autor);
+        printf("%d: %s (%s)\n", i + 1, acervo->livros[i].titulo, acervo->livros[i].autor);
         printf("   %s\n", acervo->livros[i].genero);
     }
 }
