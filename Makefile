@@ -7,5 +7,3 @@ run: build
 test:
 	gcc -Wall library.c test_library.c -o test_library.exe
 	./test_library.exe
-
-	#bats --tap tests

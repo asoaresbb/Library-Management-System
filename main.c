@@ -133,27 +133,24 @@ void trataEditarLivro(Acervo *acervo)
     Livro livroEditado = acervo->livros[indiceLivroEditado];
     char textoLido[100]; // Tamanho máximo da linha a ser lida
 
-    printf(" ❓ Escreva o novo título (enter para manter %s): ", livroEditado.titulo);
-    fgets(textoLido, sizeof(textoLido), stdin);
-    textoLido[strcspn(textoLido, "\n")] = '\0'; // Remove o \n se presente
-    if (strlen(textoLido) > 0)                  // Verifica se foi digitado algo antes do Enter
+    printf(" ❓ Escreva o novo título (escreva . para manter %s): ", livroEditado.titulo);
+    scanf(" %49[^\n]", textoLido);
+    if (strcmp(textoLido, ".") != 0)
         strcpy(livroEditado.titulo, textoLido);
 
-    printf(" ❓ Escreva o novo autor (enter para manter %s): ", livroEditado.autor);
-    fgets(textoLido, sizeof(textoLido), stdin);
-    textoLido[strcspn(textoLido, "\n")] = '\0';
-    if (strlen(textoLido) > 0)
+    printf(" ❓ Escreva o novo autor (escreva . para manter %s): ", livroEditado.autor);
+    scanf(" %99[^\n]", textoLido);
+    if (strcmp(textoLido, ".") != 0)
         strcpy(livroEditado.autor, textoLido);
 
-    printf(" ❓ Escreva o novo género (enter para manter %s): ", livroEditado.genero);
-    fgets(textoLido, sizeof(textoLido), stdin);
-    textoLido[strcspn(textoLido, "\n")] = '\0';
-    if (strlen(textoLido) > 0)
+    printf(" ❓ Escreva o novo género (escreva . para manter %s): ", livroEditado.genero);
+    scanf(" %19[^\n]", textoLido);
+    if (strcmp(textoLido, ".") != 0)
         strcpy(livroEditado.genero, textoLido);
 
     atualizarLivro(acervo, indiceLivroEditado, livroEditado.titulo, livroEditado.autor, livroEditado.genero);
 
-    printf(" ℹ️ Livro %s atualizado. (enter para voltar ao menu)\n", livroEditado.titulo);
+    printf(" ℹ️ Livro %s atualizado.\n", livroEditado.titulo);
 }
 
 void trataPesquisarLivro(Acervo *acervo)
