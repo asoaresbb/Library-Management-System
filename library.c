@@ -23,3 +23,7 @@ void atualizarLivro(Acervo *acervo, int indice, Livro livro)
     strcpy(livroAEditar->autor, livro.autor);
     strcpy(livroAEditar->genero, livro.genero);
 }
+
+Acervo pesquisarLivros(Acervo *acervo, char *pesquisa)
+{
+}

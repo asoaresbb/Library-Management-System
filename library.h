@@ -22,4 +22,6 @@ void removerLivro(Acervo *acervo, int indice);
 
 void atualizarLivro(Acervo *acervo, int indice, Livro livro);
 
+Acervo pesquisarLivros(Acervo *acervo, char *pesquisa);
+
 #endif // LIBRARY_H
