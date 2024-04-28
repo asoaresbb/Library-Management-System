@@ -40,10 +40,13 @@ char *toLowerCase(const char *str)
 Acervo pesquisarLivros(Acervo *acervo, char *pesquisa)
 {
     Acervo resultados = {};
+    char *pesquisaMinuscula = toLowerCase(pesquisa);
     for (int i = 0; i < acervo->quantidade; i++)
     {
         Livro livro = acervo->livros[i];
-        if (strstr(toLowerCase(livro.titulo), toLowerCase(pesquisa)) != NULL)
+        if (strstr(toLowerCase(livro.titulo), pesquisaMinuscula) != NULL ||
+            strstr(toLowerCase(livro.autor), pesquisaMinuscula) != NULL ||
+            strstr(toLowerCase(livro.genero), pesquisaMinuscula) != NULL)
         {
             adicionarLivro(&resultados, livro);
         }

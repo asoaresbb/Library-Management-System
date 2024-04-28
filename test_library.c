@@ -10,7 +10,7 @@ void test_adicionar_livro()
 
     adicionarLivro(&acervo, livro1);
 
-    assert(acervo.quantidade == 1);
+    assert(1 == acervo.quantidade);
     assert(strcmp("Linguagem C", acervo.livros[0].titulo) == 0);
     assert(strcmp("Luís Damas", acervo.livros[0].autor) == 0);
     assert(strcmp("literatura técnica", acervo.livros[0].genero) == 0);
@@ -39,7 +39,7 @@ void test_remover_livro()
 
     removerLivro(&acervo, 0);
 
-    assert(acervo.quantidade == 0);
+    assert(0 == acervo.quantidade);
 }
 
 void test_pesquisar_livros()
@@ -47,16 +47,22 @@ void test_pesquisar_livros()
     Acervo acervo = {};
     Livro livro1 = {"Linguagem C", "Luís Damas", "literatura técnica"};
     adicionarLivro(&acervo, livro1);
-    Livro livro2 = {"teste 123", "abc", "bla"};
-    adicionarLivro(&acervo, livro2);
-    Livro livro3 = {"foobar LING", "autor 123", "literatura técnica"};
+    Livro livroNao = {"teste 123", "abc", "bla"};
+    adicionarLivro(&acervo, livroNao);
+    Livro livro3 = {"foobar LING", "autor 123", "literatura scifi"};
     adicionarLivro(&acervo, livro3);
+    Livro livro4 = {"foo bar fooo bar", "lingling", "literatura técnica"};
+    adicionarLivro(&acervo, livro4);
+    Livro livro5 = {"biblioteca JS", "Andre", "linguistico"};
+    adicionarLivro(&acervo, livro5);
 
     Acervo resultado = pesquisarLivros(&acervo, "LING");
 
-    assert(resultado.quantidade == 2);
+    assert(4 == resultado.quantidade);
     assert(strcmp("Linguagem C", resultado.livros[0].titulo) == 0);
     assert(strcmp("foobar LING", resultado.livros[1].titulo) == 0);
+    assert(strcmp("foo bar fooo bar", resultado.livros[2].titulo) == 0);
+    assert(strcmp("biblioteca JS", resultado.livros[3].titulo) == 0);
 }
 
 int main()

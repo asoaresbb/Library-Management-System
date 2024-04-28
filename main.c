@@ -11,13 +11,10 @@ void limparBufferEntrada()
 }
 
 char pedirOpcaoMenu();
-
 void trataAdicionarLivro(Acervo *acervo);
-
 void trataRemoverLivro(Acervo *acervo);
-
 void trataEditarLivro(Acervo *acervo);
-
+void trataPesquisarLivro(Acervo *acervo);
 void imprimirListaLivros(Acervo *acervo);
 
 int main()
@@ -53,7 +50,7 @@ int main()
             break;
         case 'p':
             printf("\n");
-            // pesquisarLivro(acervo);
+            trataPesquisarLivro(&acervo);
             break;
         case 'l':
             printf("\n");
@@ -78,8 +75,8 @@ char pedirOpcaoMenu()
     printf("   +  Adicionar livro\n");
     printf("   -  Remover livro\n");
     printf("   e  Editar livro\n");
-    printf("   l  Imprimir a lista de livros\n");
     printf("   p  Pesquisar livro\n");
+    printf("   l  Imprimir a lista de livros\n");
     printf("   s  Sair do programa\n");
     char opcao[10];
     scanf("%s", opcao);
@@ -115,7 +112,7 @@ void trataRemoverLivro(Acervo *acervo)
     }
 
     removerLivro(acervo, indiceLivroARemover);
-    printf(" ℹ️ Livro removido com sucesso!\n");
+    printf(" ℹ️ Livro removido.\n");
     return;
 }
 
@@ -156,7 +153,16 @@ void trataEditarLivro(Acervo *acervo)
 
     atualizarLivro(acervo, indiceLivroEditado, livroEditado);
 
-    printf(" ℹ️ Livro atualizado com sucesso. (enter para voltar ao menu)\n");
+    printf(" ℹ️ Livro %s atualizado. (enter para voltar ao menu)\n", livroEditado.titulo);
+}
+
+void trataPesquisarLivro(Acervo *acervo)
+{
+    printf(" ❓ Escreva o texto a pesquisar (por título, autor ou tipo): ");
+    char textoPesquisa[40];
+    scanf("%s", textoPesquisa);
+    Acervo resultados = pesquisarLivros(acervo, textoPesquisa);
+    imprimirListaLivros(&resultados);
 }
 
 void imprimirListaLivros(Acervo *acervo)
