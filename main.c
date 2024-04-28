@@ -21,10 +21,8 @@ int main()
 {
     Acervo acervo = {};
     // Adicionando pratos manualmente (substituir por CSV)
-    Livro novoLivro1 = {"Linguagem C", "Luís Damas", "literatura técnica"};
-    Livro novoLivro2 = {"jQuery", "Luís Soares", "literatura técnica"};
-    adicionarLivro(&acervo, novoLivro1);
-    adicionarLivro(&acervo, novoLivro2);
+    adicionarLivro(&acervo, "Linguagem C", "Luís Damas", "literatura técnica");
+    adicionarLivro(&acervo, "jQuery", "Luís Soares", "literatura técnica");
 
     printf("\n🍽️ 🍽️ 🍽️ 🍽️ 🍽️ 🍽️ 🍽️ 🍽️ 🍽️ 🍽️ 🍽️ 🍽️\n");
     printf("🍽️ 🍽️ 🍽️  Gestor de Bibilioteca  🍽️ 🍽️ 🍽️ \n");
@@ -86,15 +84,17 @@ char pedirOpcaoMenu()
 void trataAdicionarLivro(Acervo *acervo)
 {
     limparBufferEntrada();
-    Livro livroNovo;
     printf(" ❓ Escreva o título do livro: ");
-    scanf(" %49[^\n]", livroNovo.titulo);
+    char titulo[50];
+    scanf(" %49[^\n]", titulo);
     printf(" ❓ Escreva o autor do livro: ");
-    scanf(" %99[^\n]", livroNovo.autor);
+    char autor[100];
+    scanf(" %99[^\n]", autor);
     printf(" ❓ Escreva o género do livro: ");
-    scanf(" %19[^\n]", livroNovo.genero);
-    adicionarLivro(acervo, livroNovo);
-    printf(" ℹ️ O livro %s foi adicionado.\n", livroNovo.titulo);
+    char genero[20];
+    scanf(" %19[^\n]", genero);
+    adicionarLivro(acervo, titulo, autor, genero);
+    printf(" ℹ️ O livro %s foi adicionado.\n", titulo);
 }
 
 void trataRemoverLivro(Acervo *acervo)
@@ -119,7 +119,7 @@ void trataRemoverLivro(Acervo *acervo)
 void trataEditarLivro(Acervo *acervo)
 {
     imprimirListaLivros(acervo);
-    printf(" ❓ Que livro quer editar? ");
+    printf("\n ❓ Que livro quer editar? ");
     int indiceLivroEditado = 0;
     scanf("%d", &indiceLivroEditado);
     indiceLivroEditado--;
@@ -131,7 +131,7 @@ void trataEditarLivro(Acervo *acervo)
     }
 
     Livro livroEditado = acervo->livros[indiceLivroEditado];
-    char textoLido[50]; // Tamanho máximo da linha a ser lida
+    char textoLido[100]; // Tamanho máximo da linha a ser lida
 
     printf(" ❓ Escreva o novo título (enter para manter %s): ", livroEditado.titulo);
     fgets(textoLido, sizeof(textoLido), stdin);
@@ -151,7 +151,7 @@ void trataEditarLivro(Acervo *acervo)
     if (strlen(textoLido) > 0)
         strcpy(livroEditado.genero, textoLido);
 
-    atualizarLivro(acervo, indiceLivroEditado, livroEditado);
+    atualizarLivro(acervo, indiceLivroEditado, livroEditado.titulo, livroEditado.autor, livroEditado.genero);
 
     printf(" ℹ️ Livro %s atualizado. (enter para voltar ao menu)\n", livroEditado.titulo);
 }

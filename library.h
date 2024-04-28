@@ -17,12 +17,9 @@ typedef struct
     int quantidade;
 } Acervo;
 
-void adicionarLivro(Acervo *acervo, Livro livroNovo);
-
+void adicionarLivro(Acervo *acervo, char *titulo, char *autor, char *genero);
 void removerLivro(Acervo *acervo, int indice);
-
-void atualizarLivro(Acervo *acervo, int indice, Livro livro);
-
+void atualizarLivro(Acervo *acervo, int indice, char *titulo, char *autor, char *genero);
 Acervo pesquisarLivros(Acervo *acervo, char *pesquisa);
 
 #endif // LIBRARY_H

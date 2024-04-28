@@ -3,13 +3,13 @@
 #include "library.h"
 #include <ctype.h>
 
-void adicionarLivro(Acervo *acervo, Livro livroNovo)
+void adicionarLivro(Acervo *acervo, char *titulo, char *autor, char *genero)
 {
-    Livro *livroDestino = &acervo->livros[acervo->quantidade];
-    livroDestino->id = acervo->quantidade;
-    strcpy(livroDestino->titulo, livroNovo.titulo);
-    strcpy(livroDestino->autor, livroNovo.autor);
-    strcpy(livroDestino->genero, livroNovo.genero);
+    Livro *novoLivro = &acervo->livros[acervo->quantidade];
+    novoLivro->id = acervo->quantidade;
+    strcpy(novoLivro->titulo, titulo);
+    strcpy(novoLivro->autor, autor);
+    strcpy(novoLivro->genero, genero);
     acervo->quantidade++; // Incrementar o número de livros no Acervo
 }
 
@@ -19,12 +19,12 @@ void removerLivro(Acervo *acervo, int indiceLivroARemover)
     acervo->quantidade--; // Atualizar o número de livros no Acervo
 }
 
-void atualizarLivro(Acervo *acervo, int indice, Livro livro)
+void atualizarLivro(Acervo *acervo, int indice, char *titulo, char *autor, char *genero)
 {
     Livro *livroAEditar = &acervo->livros[indice];
-    strcpy(livroAEditar->titulo, livro.titulo);
-    strcpy(livroAEditar->autor, livro.autor);
-    strcpy(livroAEditar->genero, livro.genero);
+    strcpy(livroAEditar->titulo, titulo);
+    strcpy(livroAEditar->autor, autor);
+    strcpy(livroAEditar->genero, genero);
 }
 
 char *toLowerCase(const char *str)
@@ -50,7 +50,7 @@ Acervo pesquisarLivros(Acervo *acervo, char *pesquisa)
             strstr(toLowerCase(livro.autor), pesquisaMinuscula) != NULL ||
             strstr(toLowerCase(livro.genero), pesquisaMinuscula) != NULL)
         {
-            adicionarLivro(&resultados, livro);
+            adicionarLivro(&resultados, livro.titulo, livro.autor, livro.genero);
         }
     }
     return resultados;

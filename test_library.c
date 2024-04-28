@@ -6,9 +6,8 @@
 void test_adicionar_livro()
 {
     Acervo acervo = {};
-    Livro livro1 = {"Linguagem C", "Luís Damas", "literatura técnica"};
 
-    adicionarLivro(&acervo, livro1);
+    adicionarLivro(&acervo, "Linguagem C", "Luís Damas", "literatura técnica");
 
     assert(1 == acervo.quantidade);
     assert(0 == acervo.livros[0].id);
@@ -20,11 +19,9 @@ void test_adicionar_livro()
 void test_atualizar_livro()
 {
     Acervo acervo = {};
-    Livro livro1 = {"Linguagem C", "Luís Damas", "literatura técnica"};
-    adicionarLivro(&acervo, livro1);
-    Livro livroSubstituto = {"Java Beginner's Guide", "Herbert Schildt", "literatura técnica"};
+    adicionarLivro(&acervo, "Linguagem C", "Luís Damas", "literatura técnica");
 
-    atualizarLivro(&acervo, 0, livroSubstituto);
+    atualizarLivro(&acervo, 0, "Java Beginner's Guide", "Herbert Schildt", "literatura técnica");
 
     assert(1 == acervo.quantidade);
     assert(strcmp("Java Beginner's Guide", acervo.livros[0].titulo) == 0);
@@ -35,8 +32,7 @@ void test_atualizar_livro()
 void test_remover_livro()
 {
     Acervo acervo = {};
-    Livro livro1 = {"jQuery", "Luís Soares", "literatura técnica"};
-    adicionarLivro(&acervo, livro1);
+    adicionarLivro(&acervo, "jQuery", "Luís Soares", "literatura técnica");
 
     removerLivro(&acervo, 0);
 
@@ -46,16 +42,11 @@ void test_remover_livro()
 void test_pesquisar_livros()
 {
     Acervo acervo = {};
-    Livro livro1 = {"Linguagem C", "Luís Damas", "literatura técnica"};
-    adicionarLivro(&acervo, livro1);
-    Livro livroNao = {"teste 123", "abc", "bla"};
-    adicionarLivro(&acervo, livroNao);
-    Livro livro3 = {"foobar LING", "autor 123", "literatura scifi"};
-    adicionarLivro(&acervo, livro3);
-    Livro livro4 = {"foo bar fooo bar", "lingling", "literatura técnica"};
-    adicionarLivro(&acervo, livro4);
-    Livro livro5 = {"biblioteca JS", "Andre", "linguistico"};
-    adicionarLivro(&acervo, livro5);
+    adicionarLivro(&acervo, "Linguagem C", "Luís Damas", "literatura técnica");
+    adicionarLivro(&acervo, "teste 123", "abc", "bla");
+    adicionarLivro(&acervo, "foobar LING", "autor 123", "literatura scifi");
+    adicionarLivro(&acervo, "foo bar fooo bar", "lingling", "literatura técnica");
+    adicionarLivro(&acervo, "biblioteca JS", "Andre", "linguistico");
 
     Acervo resultado = pesquisarLivros(&acervo, "LING");
 
