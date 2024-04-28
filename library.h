@@ -1,6 +1,25 @@
-#ifndef LIBRARY_MANAGEMENT_SYSTEM_LIBRARY_H
-#define LIBRARY_MANAGEMENT_SYSTEM_LIBRARY_H
+#ifndef LIBRARY_H
+#define LIBRARY_H
 
-void hello(void);
+// Definição da estrutura para representar um livro
+typedef struct {
+    char titulo[50];
+    char autor[100];
+    char genero[20];
+} Livro;
 
-#endif //LIBRARY_MANAGEMENT_SYSTEM_LIBRARY_H
+// Definição da estrutura para representar o acervo
+typedef struct {
+    Livro livros[100];
+    int quantidade;
+} Acervo;
+
+Acervo *criarAcervo();
+
+void adicionarLivro(Acervo *acervo, Livro livroNovo);
+
+void removerLivro(Acervo *acervo, int indice);
+
+void atualizarLivro(Acervo *acervo, int indice, Livro livro);
+
+#endif //LIBRARY_H
