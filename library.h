@@ -7,6 +7,7 @@ typedef struct
     char titulo[50];
     char autor[100];
     char genero[20];
+    int id;
 } Livro;
 
 // Definição da estrutura para representar o acervo

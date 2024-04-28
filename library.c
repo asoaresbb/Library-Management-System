@@ -5,9 +5,11 @@
 
 void adicionarLivro(Acervo *acervo, Livro livroNovo)
 {
-    strcpy(acervo->livros[acervo->quantidade].titulo, livroNovo.titulo);
-    strcpy(acervo->livros[acervo->quantidade].autor, livroNovo.autor);
-    strcpy(acervo->livros[acervo->quantidade].genero, livroNovo.genero);
+    Livro *livroDestino = &acervo->livros[acervo->quantidade];
+    livroDestino->id = acervo->quantidade;
+    strcpy(livroDestino->titulo, livroNovo.titulo);
+    strcpy(livroDestino->autor, livroNovo.autor);
+    strcpy(livroDestino->genero, livroNovo.genero);
     acervo->quantidade++; // Incrementar o número de livros no Acervo
 }
 

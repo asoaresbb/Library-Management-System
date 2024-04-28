@@ -11,6 +11,7 @@ void test_adicionar_livro()
     adicionarLivro(&acervo, livro1);
 
     assert(1 == acervo.quantidade);
+    assert(0 == acervo.livros[0].id);
     assert(strcmp("Linguagem C", acervo.livros[0].titulo) == 0);
     assert(strcmp("Luís Damas", acervo.livros[0].autor) == 0);
     assert(strcmp("literatura técnica", acervo.livros[0].genero) == 0);
