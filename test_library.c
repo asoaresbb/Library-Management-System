@@ -3,11 +3,6 @@
 #include <assert.h>
 #include <string.h>
 
-void assertStrEqual(char *expected, char *actual)
-{
-    assert(strcmp(expected, actual) == 0);
-}
-
 void test_adicionar_livro()
 {
     Acervo acervo = {};
@@ -16,9 +11,9 @@ void test_adicionar_livro()
     adicionarLivro(&acervo, livro1);
 
     assert(acervo.quantidade == 1);
-    assertStrEqual("Linguagem C", acervo.livros[0].titulo);
-    assertStrEqual("Luís Damas", acervo.livros[0].autor);
-    assertStrEqual("Luís Damas", acervo.livros[0].genero);
+    assert(strcmp("Linguagem C", acervo.livros[0].titulo) == 0);
+    assert(strcmp("Luís Damas", acervo.livros[0].autor) == 0);
+    assert(strcmp("literatura técnica", acervo.livros[0].genero) == 0);
 }
 
 void test_atualizar_livro()
@@ -31,9 +26,9 @@ void test_atualizar_livro()
     atualizarLivro(&acervo, 0, livroSubstituto);
 
     assert(1 == acervo.quantidade);
-    assertStrEqual("Java Beginner's Guide", acervo.livros[0].titulo);
-    assertStrEqual("Herbert Schildt", acervo.livros[0].autor);
-    assertStrEqual("literatura técnica", acervo.livros[0].genero);
+    assert(strcmp("Java Beginner's Guide", acervo.livros[0].titulo) == 0);
+    assert(strcmp("Herbert Schildt", acervo.livros[0].autor) == 0);
+    assert(strcmp("literatura técnica", acervo.livros[0].genero) == 0);
 }
 
 void test_remover_livro()
@@ -52,15 +47,16 @@ void test_pesquisar_livros()
     Acervo acervo = {};
     Livro livro1 = {"Linguagem C", "Luís Damas", "literatura técnica"};
     adicionarLivro(&acervo, livro1);
-    // Livro livro2 = {"teste 123", "abc", "bla"};
-    // adicionarLivro(&acervo, livro2);
-    // Livro livro3 = {"foobar LING", "autor 123", "literatura técnica"};
-    // adicionarLivro(&acervo, livro3);
+    Livro livro2 = {"teste 123", "abc", "bla"};
+    adicionarLivro(&acervo, livro2);
+    Livro livro3 = {"foobar LING", "autor 123", "literatura técnica"};
+    adicionarLivro(&acervo, livro3);
 
-    Acervo resultado = pesquisarLivros(&acervo, "Linguagem C");
+    Acervo resultado = pesquisarLivros(&acervo, "LING");
 
-    assert(resultado.quantidade == 1);
-    assertStrEqual("Linguagem C", resultado.livros[0].titulo);
+    assert(resultado.quantidade == 2);
+    assert(strcmp("Linguagem C", resultado.livros[0].titulo) == 0);
+    assert(strcmp("foobar LING", resultado.livros[1].titulo) == 0);
 }
 
 int main()

@@ -1,6 +1,7 @@
 #include <string.h>
 #include <stdlib.h>
 #include "library.h"
+#include <ctype.h>
 
 void adicionarLivro(Acervo *acervo, Livro livroNovo)
 {
@@ -24,6 +25,28 @@ void atualizarLivro(Acervo *acervo, int indice, Livro livro)
     strcpy(livroAEditar->genero, livro.genero);
 }
 
+char *toLowerCase(const char *str)
+{
+    int length = strlen(str);
+    char *lowercaseStr = (char *)malloc(length + 1);
+    for (int i = 0; i < length; i++)
+    {
+        lowercaseStr[i] = tolower(str[i]);
+    }
+    lowercaseStr[length] = '\0';
+    return lowercaseStr;
+}
+
 Acervo pesquisarLivros(Acervo *acervo, char *pesquisa)
 {
+    Acervo resultados = {};
+    for (int i = 0; i < acervo->quantidade; i++)
+    {
+        Livro livro = acervo->livros[i];
+        if (strstr(toLowerCase(livro.titulo), toLowerCase(pesquisa)) != NULL)
+        {
+            adicionarLivro(&resultados, livro);
+        }
+    }
+    return resultados;
 }

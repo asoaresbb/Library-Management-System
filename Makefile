@@ -1,4 +1,4 @@
-build:
+build: test
 	gcc -Wall main.c library.c -o main.exe
 
 run: build
