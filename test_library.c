@@ -68,5 +68,5 @@ int main()
     test_pesquisar_livros();
     printf("Teste pesquisar livros: OK\n");
 
-    printf("Todos os testes passaram com sucesso! ✅\n");
+    printf("✅ Testes da library.c passaram com sucesso!\n");
 }

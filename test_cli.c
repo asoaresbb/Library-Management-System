@@ -21,6 +21,8 @@ int main()
 
     // printf("content %s", content);
     assert(strstr(content, ": Livro titulo (autor123)\n   tecnico"));
+
+    printf("✅ Testes de aceitação passaram com sucesso!");
     return 0;
 }
 
