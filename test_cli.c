@@ -15,7 +15,7 @@ int main()
     fprintf(pipe, "tecnico\n");
     fprintf(pipe, "l\n"); // listar
     fprintf(pipe, "q\n"); // sair
-    fclose(pipe);
+    pclose(pipe);
 
     char *content = readFile("/tmp/test_output.txt");
 
