@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <ctype.h>
-#include "library.h"
+#include "gestao_livros.h"
 
 void limparBufferEntrada()
 {
@@ -24,9 +24,9 @@ int main()
     adicionarLivro(&acervo, "Linguagem C", "Luís Damas", "literatura técnica");
     adicionarLivro(&acervo, "jQuery", "Luís Soares", "literatura técnica");
 
-    printf("\n📖 📖 📖 📖 📖 📖 📖 📖 📖 📖 📖 📖\n");
+    printf("\n📖 📖 📖 📖 📖 📖 📖 📖 📖 📖 📖 📖 📖 📖\n");
     printf("📖 📖 📖  Gestor de Bibilioteca  📖 📖 📖 \n");
-    printf("📖 📖 📖 📖 📖 📖 📖 📖 📖 📖 📖 📖 \n\n");
+    printf("📖 📖 📖 📖 📖 📖 📖 📖 📖 📖 📖 📖 📖 📖\n\n");
 
     while (1)
     {

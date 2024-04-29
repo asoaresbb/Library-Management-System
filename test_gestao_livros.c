@@ -1,5 +1,5 @@
 #include <stdio.h>
-#include "library.h"
+#include "gestao_livros.h"
 #include <assert.h>
 #include <string.h>
 
@@ -68,5 +68,5 @@ int main()
     test_pesquisar_livros();
     printf("Teste pesquisar livros: OK\n");
 
-    printf("✅ Testes da library.c passaram com sucesso!\n");
+    printf("✅ Testes unitários da library.c passaram com sucesso!\n");
 }

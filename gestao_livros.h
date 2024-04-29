@@ -1,5 +1,5 @@
-#ifndef LIBRARY_H
-#define LIBRARY_H
+#ifndef GESTAO_LIVROS_H
+#define GESTAO_LIVROS_H
 
 // Definição da estrutura para representar um livro
 typedef struct
@@ -22,4 +22,4 @@ void removerLivro(Acervo *acervo, int indice);
 void atualizarLivro(Acervo *acervo, int indice, char *titulo, char *autor, char *genero);
 Acervo pesquisarLivros(Acervo *acervo, char *pesquisa);
 
-#endif // LIBRARY_H
+#endif // GESTAO_LIVROS_H

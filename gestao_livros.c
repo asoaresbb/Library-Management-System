@@ -1,6 +1,6 @@
 #include <string.h>
 #include <stdlib.h>
-#include "library.h"
+#include "gestao_livros.h"
 #include <ctype.h>
 
 void adicionarLivro(Acervo *acervo, char *titulo, char *autor, char *genero)
