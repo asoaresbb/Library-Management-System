@@ -3,20 +3,35 @@
 #include "gestao_livros.h"
 #include <ctype.h>
 
-void adicionarLivro(Acervo *acervo, char *titulo, char *autor, char *genero)
+int adicionarLivro(Acervo *acervo, char *titulo, char *autor, char *genero)
 {
-    Livro *novoLivro = &acervo->livros[acervo->quantidade];
-    novoLivro->id = acervo->quantidade;
-    strcpy(novoLivro->titulo, titulo);
-    strcpy(novoLivro->autor, autor);
-    strcpy(novoLivro->genero, genero);
+    // Procurar maior id
+    int maiorId = 0;
+    for (int i = 0; i < acervo->quantidade; ++i) {
+        if (maiorId < acervo->livros[i].id) {
+            maiorId = acervo->livros[i].id;
+        }
+    }
+
+    Livro *ultimoLivro = &acervo->livros[acervo->quantidade];
+    ultimoLivro->id = maiorId + 1; // id do próximo livro será maior que o anterior
+    strcpy(ultimoLivro->titulo, titulo);
+    strcpy(ultimoLivro->autor, autor);
+    strcpy(ultimoLivro->genero, genero);
     acervo->quantidade++; // Incrementar o número de livros no Acervo
+
+    return ultimoLivro->id;
 }
 
-void removerLivro(Acervo *acervo, int indiceLivroARemover)
+void removerLivro(Acervo *acervo, int id)
 {
-    acervo->livros[indiceLivroARemover] = acervo->livros[acervo->quantidade - 1];
-    acervo->quantidade--; // Atualizar o número de livros no Acervo
+    // Procura pelo livro com o ID desejado e remove
+    for (int i = 0; i < acervo->quantidade; ++i) {
+        if (acervo->livros[i].id == id) {
+            acervo->livros[i] = acervo->livros[acervo->quantidade - 1];
+            acervo->quantidade--; // Atualiza o número de livros no Acervo
+        }
+    }
 }
 
 void atualizarLivro(Acervo *acervo, int indice, char *titulo, char *autor, char *genero)

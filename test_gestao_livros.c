@@ -7,10 +7,10 @@ void test_adicionar_livro()
 {
     Acervo acervo = {};
 
-    adicionarLivro(&acervo, "Linguagem C", "Luís Damas", "literatura técnica");
+    int id = adicionarLivro(&acervo, "Linguagem C", "Luís Damas", "literatura técnica");
 
     assert(1 == acervo.quantidade);
-    assert(0 == acervo.livros[0].id);
+    assert(id == acervo.livros[0].id);
     assert(strcmp("Linguagem C", acervo.livros[0].titulo) == 0);
     assert(strcmp("Luís Damas", acervo.livros[0].autor) == 0);
     assert(strcmp("literatura técnica", acervo.livros[0].genero) == 0);
@@ -32,11 +32,22 @@ void test_atualizar_livro()
 void test_remover_livro()
 {
     Acervo acervo = {};
-    adicionarLivro(&acervo, "jQuery", "Luís Soares", "literatura técnica");
+    int idAdicionado = adicionarLivro(&acervo, "jQuery", "Luís Soares", "literatura técnica");
 
-    removerLivro(&acervo, 0);
+    removerLivro(&acervo, idAdicionado);
 
     assert(0 == acervo.quantidade);
+}
+
+void test_remover_livro_ids_nao_repetem() {
+    Acervo acervo = {};
+    int idAdicionado = adicionarLivro(&acervo, "jQuery", "Luís Soares", "literatura técnica");
+    adicionarLivro(&acervo, "JS", "Luís", "literatura");
+    removerLivro(&acervo, idAdicionado);
+
+    adicionarLivro(&acervo, "JS", "Luís", "literatura");
+
+    assert(acervo.livros[0].id != acervo.livros[1].id);
 }
 
 void test_pesquisar_livros()
@@ -64,9 +75,10 @@ int main()
     test_atualizar_livro();
     printf("Teste atualizar livro: OK\n");
     test_remover_livro();
+    test_remover_livro_ids_nao_repetem();
     printf("Teste remover livro: OK\n");
     test_pesquisar_livros();
     printf("Teste pesquisar livros: OK\n");
 
-    printf("✅ Testes unitários da library.c passaram com sucesso!\n");
+    printf("✅ Testes unitários da gestao_livros.c passaram com sucesso!\n");
 }

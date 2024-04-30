@@ -17,9 +17,12 @@ typedef struct
     int quantidade;
 } Acervo;
 
-void adicionarLivro(Acervo *acervo, char *titulo, char *autor, char *genero);
-void removerLivro(Acervo *acervo, int indice);
-void atualizarLivro(Acervo *acervo, int indice, char *titulo, char *autor, char *genero);
+// o adicionar retorna o id gerado
+int adicionarLivro(Acervo *acervo, char *titulo, char *autor, char *genero);
+
+void removerLivro(Acervo *acervo, int id);
+
+void atualizarLivro(Acervo *acervo, int id, char *titulo, char *autor, char *genero);
 Acervo pesquisarLivros(Acervo *acervo, char *pesquisa);
 
 #endif // GESTAO_LIVROS_H

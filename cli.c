@@ -102,16 +102,9 @@ void trataRemoverLivro(Acervo *acervo)
     imprimirListaLivros(acervo);
     printf(" ❓ Selecione numero do livro a remover:");
 
-    int indiceLivroARemover = 0;
-    scanf("%d", &indiceLivroARemover);
-    indiceLivroARemover--;
-    if (indiceLivroARemover < 0 || indiceLivroARemover > acervo->quantidade)
-    {
-        printf(" ℹ️ O livro escolhido nao existe.\n");
-        return;
-    }
-
-    removerLivro(acervo, indiceLivroARemover);
+    int idLivroARemover = 0;
+    scanf("%d", &idLivroARemover);
+    removerLivro(acervo, idLivroARemover);
     printf(" ℹ️ Livro removido.\n");
     return;
 }
@@ -171,7 +164,7 @@ void imprimirListaLivros(Acervo *acervo)
     }
     for (int i = 0; i < acervo->quantidade; i++)
     {
-        printf("%d: %s (%s)\n", i + 1, acervo->livros[i].titulo, acervo->livros[i].autor);
+        printf("%d: %s (%s)\n", acervo->livros[i].id, acervo->livros[i].titulo, acervo->livros[i].autor);
         printf("   %s\n", acervo->livros[i].genero);
     }
 }
