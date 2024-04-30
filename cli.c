@@ -5,12 +5,6 @@
 #include "gestao_livros.h"
 #include "gestao_emprestimos.h"
 
-void limparBufferEntrada()
-{
-    while ((getchar()) != '\n')
-        ;
-}
-
 char pedirOpcaoMenu();
 void trataAdicionarLivro(Acervo *acervo);
 void trataRemoverLivro(Acervo *acervo);
@@ -63,9 +57,8 @@ int main()
             printf(" ℹ️ A sair do programa...\n");
             return 0;
         default:
-            printf(" ℹ️ Opção inválida. Tente novamente.\n");
+            printf(" ℹ️ Opção inválida.\n");
         }
-        limparBufferEntrada();
     }
     printf("\n");
     return 0;
@@ -90,7 +83,6 @@ char pedirOpcaoMenu()
 
 void trataAdicionarLivro(Acervo *acervo)
 {
-    limparBufferEntrada();
     printf(" ❓ Escreva o título do livro: ");
     char titulo[50];
     scanf(" %49[^\n]", titulo);
@@ -124,7 +116,6 @@ void trataEditarLivro(Acervo *acervo)
     printf("\n ❓ Qual o id. do livro a editar? ");
     int id = 0;
     scanf("%d", &id);
-    limparBufferEntrada();
     // TODO validar se id existe
     // TODO validar se a pessoa introduz um inteiro
 
