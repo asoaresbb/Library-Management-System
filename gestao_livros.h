@@ -18,7 +18,6 @@ typedef struct
 } Acervo;
 
 Livro *obterLivro(Acervo *acervo, int id);
-
 int adicionarLivro(Acervo *acervo, char *titulo, char *autor, char *genero); // o adicionar retorna o id gerado
 void removerLivro(Acervo *acervo, int id);
 Acervo pesquisarLivros(Acervo *acervo, char *pesquisa);
