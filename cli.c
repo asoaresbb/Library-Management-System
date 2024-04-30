@@ -11,7 +11,7 @@ void trataRemoverLivro(Acervo *acervo);
 void trataEditarLivro(Acervo *acervo);
 void trataPesquisarLivro(Acervo *acervo);
 void trataImprimirAcervo(Acervo acervo);
-void trataEmprestarLivro(Emprestimos *emprestimos);
+void trataEmprestarLivro(Acervo acervo, Emprestimos *emprestimos);
 void trataListarEmprestimos(Emprestimos emprestimos, Acervo acervo);
 
 int main()
@@ -48,7 +48,7 @@ int main()
             trataImprimirAcervo(acervo);
             break;
         case 'm':
-            trataEmprestarLivro(&emprestimos);
+            trataEmprestarLivro(acervo, &emprestimos);
             break;
         case 'i':
             trataListarEmprestimos(emprestimos, acervo);
@@ -99,12 +99,15 @@ void trataAdicionarLivro(Acervo *acervo)
 void trataRemoverLivro(Acervo *acervo)
 {
     trataImprimirAcervo(*acervo);
-    printf(" ❓ Qual o id. do livro a remover? ");
-    // TODO validar se id existe
     // TODO validar se a pessoa introduz um inteiro
-
     int idLivroARemover = 0;
+    printf(" ❓ Qual o id. do livro a remover? ");
     scanf("%d", &idLivroARemover);
+    if (obterLivro(acervo, idLivroARemover) == NULL)
+    {
+        printf(" ℹ️ O livro com id. %d não existe.\n", idLivroARemover);
+        return;
+    }
     removerLivro(acervo, idLivroARemover);
     printf(" ℹ️ Livro removido.\n");
     return;
@@ -116,10 +119,14 @@ void trataEditarLivro(Acervo *acervo)
     printf("\n ❓ Qual o id. do livro a editar? ");
     int id = 0;
     scanf("%d", &id);
-    // TODO validar se id existe
     // TODO validar se a pessoa introduz um inteiro
 
     Livro *livroEditado = obterLivro(acervo, id);
+    if (livroEditado == NULL)
+    {
+        printf(" ℹ️ O livro com id. %d não existe.\n", id);
+        return;
+    }
     char textoLido[100]; // Tamanho máximo da linha a ser lida
 
     printf(" ❓ Escreva o novo título (escreva . para manter %s): ", livroEditado->titulo);
@@ -161,12 +168,16 @@ void trataImprimirAcervo(Acervo acervo)
     }
 }
 
-void trataEmprestarLivro(Emprestimos *emprestimos)
+void trataEmprestarLivro(Acervo acervo, Emprestimos *emprestimos)
 {
     printf(" ❓ Qual o id. do livro a emprestar? ");
     int idLivro;
     scanf("%d", &idLivro);
-    // TODO validar se id existe
+    if (obterLivro(&acervo, idLivro) == NULL)
+    {
+        printf(" ℹ️ O livro com id. %d não existe.\n", idLivro);
+        return;
+    }
     // TODO validar se a pessoa introduz um inteiro
     printf(" ❓ Qual o id. do utilizador? ");
     int idUtilizador;
