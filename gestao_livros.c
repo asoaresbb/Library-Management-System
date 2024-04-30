@@ -3,7 +3,6 @@
 #include "gestao_livros.h"
 #include <ctype.h>
 
-// TODO nao é preciso receber ponteiro
 Livro *obterLivro(Acervo *acervo, int id)
 {
     // retorna o livro a partir do ID
