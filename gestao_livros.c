@@ -13,8 +13,7 @@ Livro *obterLivro(Acervo *acervo, int id) {
     return NULL;
 }
 
-int adicionarLivro(Acervo *acervo, char *titulo, char *autor, char *genero)
-{
+int adicionarLivro(Acervo *acervo, char *titulo, char *autor, char *genero) {
     // Procurar maior id
     int maiorId = 0;
     for (int i = 0; i < acervo->quantidade; ++i) {
@@ -23,7 +22,7 @@ int adicionarLivro(Acervo *acervo, char *titulo, char *autor, char *genero)
         }
     }
 
-    Livro *ultimoLivro = &acervo->livros[acervo->quantidade];
+    Livro *ultimoLivro = &(acervo->livros[acervo->quantidade]);
     ultimoLivro->id = maiorId + 1; // id do próximo livro será maior que o anterior
     strcpy(ultimoLivro->titulo, titulo);
     strcpy(ultimoLivro->autor, autor);
@@ -33,8 +32,7 @@ int adicionarLivro(Acervo *acervo, char *titulo, char *autor, char *genero)
     return ultimoLivro->id;
 }
 
-void removerLivro(Acervo *acervo, int id)
-{
+void removerLivro(Acervo *acervo, int id) {
     // Procura pelo livro com o ID desejado e remove
     for (int i = 0; i < acervo->quantidade; ++i) {
         if (acervo->livros[i].id == id) {
@@ -45,29 +43,24 @@ void removerLivro(Acervo *acervo, int id)
     }
 }
 
-char *toLowerCase(const char *str)
-{
+char *toLowerCase(const char *str) {
     int length = strlen(str);
-    char *lowercaseStr = (char *)malloc(length + 1);
-    for (int i = 0; i < length; i++)
-    {
+    char *lowercaseStr = (char *) malloc(length + 1);
+    for (int i = 0; i < length; i++) {
         lowercaseStr[i] = tolower(str[i]);
     }
     lowercaseStr[length] = '\0';
     return lowercaseStr;
 }
 
-Acervo pesquisarLivros(Acervo *acervo, char *pesquisa)
-{
+Acervo pesquisarLivros(Acervo *acervo, char *pesquisa) {
     Acervo resultados = {};
     char *pesquisaMinuscula = toLowerCase(pesquisa);
-    for (int i = 0; i < acervo->quantidade; i++)
-    {
+    for (int i = 0; i < acervo->quantidade; i++) {
         Livro livro = acervo->livros[i];
         if (strstr(toLowerCase(livro.titulo), pesquisaMinuscula) != NULL ||
             strstr(toLowerCase(livro.autor), pesquisaMinuscula) != NULL ||
-            strstr(toLowerCase(livro.genero), pesquisaMinuscula) != NULL)
-        {
+            strstr(toLowerCase(livro.genero), pesquisaMinuscula) != NULL) {
             adicionarLivro(&resultados, livro.titulo, livro.autor, livro.genero);
         }
     }
