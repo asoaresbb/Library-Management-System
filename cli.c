@@ -16,7 +16,7 @@ void trataAdicionarLivro(Acervo *acervo);
 void trataRemoverLivro(Acervo *acervo);
 void trataEditarLivro(Acervo *acervo);
 void trataPesquisarLivro(Acervo *acervo);
-void trataImprimirAcervo(Acervo *acervo);
+void trataImprimirAcervo(Acervo acervo);
 void trataEmprestarLivro(Emprestimos *emprestimos);
 void trataListarEmprestimos(Emprestimos emprestimos, Acervo acervo);
 
@@ -51,7 +51,7 @@ int main()
             trataPesquisarLivro(&acervo);
             break;
         case 'l':
-            trataImprimirAcervo(&acervo);
+            trataImprimirAcervo(acervo);
             break;
         case 'm':
             trataEmprestarLivro(&emprestimos);
@@ -106,7 +106,7 @@ void trataAdicionarLivro(Acervo *acervo)
 
 void trataRemoverLivro(Acervo *acervo)
 {
-    trataImprimirAcervo(acervo);
+    trataImprimirAcervo(*acervo);
     printf(" ❓ Qual o id. do livro a remover? ");
     // TODO validar se id existe
     // TODO validar se a pessoa introduz um inteiro
@@ -120,7 +120,7 @@ void trataRemoverLivro(Acervo *acervo)
 
 void trataEditarLivro(Acervo *acervo)
 {
-    trataImprimirAcervo(acervo);
+    trataImprimirAcervo(*acervo);
     printf("\n ❓ Qual o id. do livro a editar? ");
     int id = 0;
     scanf("%d", &id);
@@ -155,18 +155,18 @@ void trataPesquisarLivro(Acervo *acervo)
     char textoPesquisa[40];
     scanf("%s", textoPesquisa);
     Acervo resultados = pesquisarLivros(acervo, textoPesquisa);
-    trataImprimirAcervo(&resultados);
+    trataImprimirAcervo(resultados);
 }
 
-void trataImprimirAcervo(Acervo *acervo)
+void trataImprimirAcervo(Acervo acervo)
 {
-    if (acervo->quantidade == 0)
+    if (acervo.quantidade == 0)
         printf(" ℹ️ A lista de livros está vazia.\n");
 
-    for (int i = 0; i < acervo->quantidade; i++)
+    for (int i = 0; i < acervo.quantidade; i++)
     {
-        printf("%d: %s (%s)\n", acervo->livros[i].id, acervo->livros[i].titulo, acervo->livros[i].autor);
-        printf("   %s\n", acervo->livros[i].genero);
+        printf("%d: %s (%s)\n", acervo.livros[i].id, acervo.livros[i].titulo, acervo.livros[i].autor);
+        printf("   %s\n", acervo.livros[i].genero);
     }
 }
 
