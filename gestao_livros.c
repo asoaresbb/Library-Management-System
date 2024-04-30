@@ -3,6 +3,16 @@
 #include "gestao_livros.h"
 #include <ctype.h>
 
+Livro *obterLivro(Acervo *acervo, int id) {
+    // retorna o livro a partir do ID
+    for (int i = 0; i < acervo->quantidade; ++i) {
+        if (acervo->livros[i].id == id) {
+            return &acervo->livros[i];
+        }
+    }
+    return NULL;
+}
+
 int adicionarLivro(Acervo *acervo, char *titulo, char *autor, char *genero)
 {
     // Procurar maior id
@@ -30,16 +40,9 @@ void removerLivro(Acervo *acervo, int id)
         if (acervo->livros[i].id == id) {
             acervo->livros[i] = acervo->livros[acervo->quantidade - 1];
             acervo->quantidade--; // Atualiza o número de livros no Acervo
+            return;
         }
     }
-}
-
-void atualizarLivro(Acervo *acervo, int indice, char *titulo, char *autor, char *genero)
-{
-    Livro *livroAEditar = &acervo->livros[indice];
-    strcpy(livroAEditar->titulo, titulo);
-    strcpy(livroAEditar->autor, autor);
-    strcpy(livroAEditar->genero, genero);
 }
 
 char *toLowerCase(const char *str)

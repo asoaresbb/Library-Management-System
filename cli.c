@@ -100,7 +100,8 @@ void trataAdicionarLivro(Acervo *acervo)
 void trataRemoverLivro(Acervo *acervo)
 {
     imprimirListaLivros(acervo);
-    printf(" ❓ Selecione numero do livro a remover:");
+    printf(" ❓ Qual o id. do livro a remover? ");
+    // TODO validar se id existe
 
     int idLivroARemover = 0;
     scanf("%d", &idLivroARemover);
@@ -112,38 +113,32 @@ void trataRemoverLivro(Acervo *acervo)
 void trataEditarLivro(Acervo *acervo)
 {
     imprimirListaLivros(acervo);
-    printf("\n ❓ Que livro quer editar? ");
-    int indiceLivroEditado = 0;
-    scanf("%d", &indiceLivroEditado);
-    indiceLivroEditado--;
+    printf("\n ❓ Qual o id. do livro a editar? ");
+    int id = 0;
+    scanf("%d", &id);
     limparBufferEntrada();
-    if (indiceLivroEditado < 0 || indiceLivroEditado > acervo->quantidade)
-    {
-        printf(" ℹ️ O livro escolhido nao existe.\n");
-        return;
-    }
+    // TODO validar se id existe
 
-    Livro livroEditado = acervo->livros[indiceLivroEditado];
+    Livro *livroEditado = obterLivro(acervo, id);
     char textoLido[100]; // Tamanho máximo da linha a ser lida
 
-    printf(" ❓ Escreva o novo título (escreva . para manter %s): ", livroEditado.titulo);
+    printf(" ❓ Escreva o novo título (escreva . para manter %s): ", livroEditado->titulo);
     scanf(" %49[^\n]", textoLido);
     if (strcmp(textoLido, ".") != 0)
-        strcpy(livroEditado.titulo, textoLido);
+        strcpy(livroEditado->titulo, textoLido);
 
-    printf(" ❓ Escreva o novo autor (escreva . para manter %s): ", livroEditado.autor);
+    printf(" ❓ Escreva o novo autor (escreva . para manter %s): ", livroEditado->autor);
     scanf(" %99[^\n]", textoLido);
     if (strcmp(textoLido, ".") != 0)
-        strcpy(livroEditado.autor, textoLido);
+        strcpy(livroEditado->autor, textoLido);
 
-    printf(" ❓ Escreva o novo género (escreva . para manter %s): ", livroEditado.genero);
+    printf(" ❓ Escreva o novo género (escreva . para manter %s): ", livroEditado->genero);
     scanf(" %19[^\n]", textoLido);
     if (strcmp(textoLido, ".") != 0)
-        strcpy(livroEditado.genero, textoLido);
+        strcpy(livroEditado->genero, textoLido);
 
-    atualizarLivro(acervo, indiceLivroEditado, livroEditado.titulo, livroEditado.autor, livroEditado.genero);
 
-    printf(" ℹ️ Livro %s atualizado.\n", livroEditado.titulo);
+    printf(" ℹ️ Livro %s atualizado.\n", livroEditado->titulo);
 }
 
 void trataPesquisarLivro(Acervo *acervo)

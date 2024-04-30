@@ -3,6 +3,15 @@
 #include <assert.h>
 #include <string.h>
 
+void test_obter_livro_a_partir_de_id() {
+    Acervo acervo = {};
+    int id = adicionarLivro(&acervo, "Linguagem C", "Luís Damas", "literatura técnica");
+
+    Livro *livro = obterLivro(&acervo, id);
+
+    assert(strcmp("Linguagem C", livro->titulo) == 0);
+}
+
 void test_adicionar_livro()
 {
     Acervo acervo = {};
@@ -16,17 +25,15 @@ void test_adicionar_livro()
     assert(strcmp("literatura técnica", acervo.livros[0].genero) == 0);
 }
 
-void test_atualizar_livro()
-{
+void test_atualizar_livro() {
     Acervo acervo = {};
-    adicionarLivro(&acervo, "Linguagem C", "Luís Damas", "literatura técnica");
+    int idCriado = adicionarLivro(&acervo, "Linguagem C", "Luís Damas", "literatura técnica");
+    Livro *livroEditado = obterLivro(&acervo, idCriado);
 
-    atualizarLivro(&acervo, 0, "Java Beginner's Guide", "Herbert Schildt", "literatura técnica");
+    strcpy(livroEditado->titulo, "abc");
 
     assert(1 == acervo.quantidade);
-    assert(strcmp("Java Beginner's Guide", acervo.livros[0].titulo) == 0);
-    assert(strcmp("Herbert Schildt", acervo.livros[0].autor) == 0);
-    assert(strcmp("literatura técnica", acervo.livros[0].genero) == 0);
+    assert(strcmp("abc", acervo.livros[0].titulo) == 0);
 }
 
 void test_remover_livro()
@@ -70,15 +77,12 @@ void test_pesquisar_livros()
 
 int main()
 {
+    test_obter_livro_a_partir_de_id();
     test_adicionar_livro();
-    printf("Teste adicionar livro: OK\n");
     test_atualizar_livro();
-    printf("Teste atualizar livro: OK\n");
     test_remover_livro();
     test_remover_livro_ids_nao_repetem();
-    printf("Teste remover livro: OK\n");
     test_pesquisar_livros();
-    printf("Teste pesquisar livros: OK\n");
 
     printf("✅ Testes unitários da gestao_livros.c passaram com sucesso!\n");
 }
