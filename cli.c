@@ -248,13 +248,16 @@ void trataRenovarEmprestimo(Acervo acervo, Emprestimos *emprestimos) {
 }
 
 void trataListarEmprestimos(Emprestimos emprestimos, Acervo acervo) {
-    printf("%-35s| %-10s | %s \n", "Livro", "Utilizador", "Data");
+    printf("%-35s| %-10s | %s | %s \n", "Livro", "Utilizador", "Emprestado em", "Devolvido em");
     for (int i = 0; i < emprestimos.quantidade; i++) {
         Emprestimo emprestimo = emprestimos.lista[i];
         char dataEmprestimoFormatada[11]; // Data de empréstimo formatada como: "YYYY-MM-DD"
+        char dataDevolucaoFormatada[11]; // Data de devolução formatada como: "YYYY-MM-DD"
         strftime(dataEmprestimoFormatada, sizeof(dataEmprestimoFormatada), "%Y-%m-%d", localtime(&emprestimo.data));
+        strftime(dataDevolucaoFormatada, sizeof(dataDevolucaoFormatada), "%Y-%m-%d",
+                 localtime(&emprestimo.dataDevolucao));
         Livro *livro = obterLivro(&acervo, emprestimo.idLivro);
-        printf("%-6d - %-25s | %-10d | %s \n", emprestimo.idLivro, livro->titulo, emprestimo.idUtilizador,
-               dataEmprestimoFormatada);
+        printf("%-6d - %-25s | %-10d | %s    | %s \n", emprestimo.idLivro, livro->titulo, emprestimo.idUtilizador,
+               dataEmprestimoFormatada, dataDevolucaoFormatada);
     }
 }
