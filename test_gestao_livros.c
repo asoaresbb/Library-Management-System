@@ -12,8 +12,7 @@ void test_obter_livro_a_partir_de_id() {
     assert(strcmp("Linguagem C", livro->titulo) == 0);
 }
 
-void test_adicionar_livro()
-{
+void test_adicionar_livro() {
     Acervo acervo = {};
 
     int id = adicionarLivro(&acervo, "Linguagem C", "Luís Damas", "literatura técnica");
@@ -36,8 +35,7 @@ void test_atualizar_livro() {
     assert(strcmp("abc", acervo.livros[0].titulo) == 0);
 }
 
-void test_remover_livro()
-{
+void test_remover_livro() {
     Acervo acervo = {};
     int idAdicionado = adicionarLivro(&acervo, "jQuery", "Luís Soares", "literatura técnica");
 
@@ -57,8 +55,7 @@ void test_remover_livro_ids_nao_repetem() {
     assert(acervo.livros[0].id != acervo.livros[1].id);
 }
 
-void test_pesquisar_livros()
-{
+void test_pesquisar_livros() {
     Acervo acervo = {};
     adicionarLivro(&acervo, "Linguagem C", "Luís Damas", "literatura técnica");
     adicionarLivro(&acervo, "teste 123", "abc", "bla");
@@ -75,8 +72,7 @@ void test_pesquisar_livros()
     assert(strcmp("biblioteca JS", resultado.livros[3].titulo) == 0);
 }
 
-int main()
-{
+int main() {
     test_obter_livro_a_partir_de_id();
     test_adicionar_livro();
     test_atualizar_livro();
