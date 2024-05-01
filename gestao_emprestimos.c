@@ -12,7 +12,7 @@ void emprestarLivro(Emprestimos *emprestimos, int idLivro, int idUtilizador) {
 }
 
 void devolverLivro(Emprestimos *emprestimos, int idLivro, int idUtilizador) {
-    // Procura pelo empréstimo correspondente na lista
+    // Procura pelo empréstimo correspondente na lista de empréstimos
     for (int i = 0; i < emprestimos->quantidade; i++) {
         Emprestimo *emprestimo = &(emprestimos->lista[i]);
         if (emprestimo->idLivro == idLivro && emprestimo->idUtilizador == idUtilizador) {
@@ -27,6 +27,10 @@ void devolverLivro(Emprestimos *emprestimos, int idLivro, int idUtilizador) {
             return;
         }
     }
+}
+
+void renovarEmprestimo(Emprestimos *emprestimos, int idLivro, int idUtilizador) {
+
 }
 
 

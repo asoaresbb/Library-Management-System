@@ -21,4 +21,6 @@ void emprestarLivro(Emprestimos *emprestimos, int idLivro, int idUtilizador);
 
 void devolverLivro(Emprestimos *emprestimos, int idLivro, int idUtilizador);
 
+void renovarEmprestimo(Emprestimos *emprestimos, int idLivro, int idUtilizador);
+
 #endif // GESTAO_EMPRESTIMOS_H
