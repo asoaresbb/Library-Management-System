@@ -8,6 +8,7 @@ typedef struct {
     int idLivro;
     int idUtilizador;
     time_t data;
+    time_t dataDevolucao;
 } Emprestimo;
 
 // Definição da estrutura para representar os livros emprestados
@@ -17,5 +18,7 @@ typedef struct {
 } Emprestimos;
 
 void emprestarLivro(Emprestimos *emprestimos, int idLivro, int idUtilizador);
+
+void devolverLivro(Emprestimos *emprestimos, int idLivro, int idUtilizador);
 
 #endif // GESTAO_EMPRESTIMOS_H
