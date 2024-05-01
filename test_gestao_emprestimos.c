@@ -2,12 +2,12 @@
 #include "gestao_emprestimos.h"
 #include <assert.h>
 #include <string.h>
+#include <unistd.h>
 
 void test_emprestar() {
     Emprestimos emprestimos = {};
 
     emprestarLivro(&emprestimos, 123, 987);
-    //TODO passar uma data esperada(15 dias) para se poder renovar ou devolver. Criar teste.
 
     assert(1 == emprestimos.quantidade);
     assert(123 == emprestimos.lista[0].idLivro);
@@ -17,14 +17,13 @@ void test_emprestar() {
 
 void test_devolver() {
     Emprestimos emprestimos = {};
-
     emprestarLivro(&emprestimos, 123, 987);
+    sleep(1);
+
     devolverLivro(&emprestimos, 123, 987);
 
-    assert(0 == emprestimos.quantidade);
-    assert(123 == emprestimos.lista[0].idLivro);
-    assert(987 == emprestimos.lista[0].idUtilizador);
-    assert(emprestimos.lista[0].dataDevolucao > 0);
+    assert(emprestimos.lista[0].dataDevolucao > emprestimos.lista[0].data);
+    assert(1 == emprestimos.quantidade);
 }
 
 void test_renovar() {

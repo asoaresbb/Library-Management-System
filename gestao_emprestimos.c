@@ -18,12 +18,6 @@ void devolverLivro(Emprestimos *emprestimos, int idLivro, int idUtilizador) {
         if (emprestimo->idLivro == idLivro && emprestimo->idUtilizador == idUtilizador) {
             // Define a data de devolução como a data atual
             emprestimo->dataDevolucao = time(NULL);
-
-            // Remove o empréstimo da lista de empréstimos
-            // Move o último empréstimo para a posição do empréstimo que está a ser devolvido
-            Emprestimo *ultimoEmprestimo = &(emprestimos->lista[emprestimos->quantidade - 1]);
-            *emprestimo = *ultimoEmprestimo; // Copia o último empréstimo para a posição atual
-            emprestimos->quantidade--; // Reduz a quantidade de empréstimos na lista
             return;
         }
     }
