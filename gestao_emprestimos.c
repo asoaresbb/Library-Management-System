@@ -15,6 +15,7 @@ void emprestarLivro(Emprestimos *emprestimos, int idLivro, int idUtilizador) {
     ultimoEmprestimo->idUtilizador = idUtilizador;
     ultimoEmprestimo->data = time(NULL); // Obter a data atual como data de empréstimo
     ultimoEmprestimo->dataEsperada = ultimoEmprestimo->data + QUINZE_DIAS_EM_SEGUNDOS;
+    ultimoEmprestimo->dataDevolucao = 0;
     emprestimos->quantidade++;
 }
 

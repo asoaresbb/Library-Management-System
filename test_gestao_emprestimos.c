@@ -84,6 +84,7 @@ void test_renovar() {
     bool renovado = renovarEmprestimo(&emprestimos, 123, 987);
 
     assert(renovado);
+    assert(emprestimos.lista[0].dataDevolucao == 0);
     assert(emprestimos.lista[0].dataEsperada ==
            emprestimos.lista[0].data + QUINZE_DIAS_EM_SEGUNDOS + CINCO_DIAS_EM_SEGUNDOS);
 }
