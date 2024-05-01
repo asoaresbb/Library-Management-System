@@ -68,6 +68,8 @@ int main() {
                 trataListarEmprestimos(emprestimos, acervo);
                 break;
             case 's':
+                libertarMemoriaAcervo(&acervo);
+                libertarMemoriaEmprestimos(&emprestimos);
                 printf(" ℹ️ A sair do programa...\n");
                 return 0;
             default:
@@ -210,7 +212,7 @@ void trataEmprestarLivro(Acervo acervo, Emprestimos *emprestimos) {
         while (getchar() != '\n'); // Descarta a restante entrada
         return;
     }
-
+    // TODO verificar que ainda existe exemplares disponiveis para emprestar
     emprestarLivro(emprestimos, idLivro, idUtilizador);
 }
 

@@ -58,7 +58,9 @@ char *toLowerCase(const char *str) {
 
 Acervo pesquisarLivros(Acervo *acervo, char *pesquisa) {
     Acervo resultados = {};
+    // trata o input do utilizador para minúsculas para evitar diferenças
     char *pesquisaMinuscula = toLowerCase(pesquisa);
+    // caso utilizador escreva algo então procura nos 3 campos
     for (int i = 0; i < acervo->quantidade; i++) {
         Livro livro = acervo->livros[i];
         if (strstr(toLowerCase(livro.titulo), pesquisaMinuscula) != NULL ||
@@ -68,4 +70,8 @@ Acervo pesquisarLivros(Acervo *acervo, char *pesquisa) {
         }
     }
     return resultados;
+}
+
+void libertarMemoriaAcervo(Acervo *acervo) {
+    free(acervo->livros);
 }

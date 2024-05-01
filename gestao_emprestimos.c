@@ -1,10 +1,13 @@
 #include <time.h>
+#include <stdlib.h>
 #include "gestao_emprestimos.h"
 
 #define CINCO_DIAS_EM_SEGUNDOS (5 * 24 * 60 * 60)
 #define QUINZE_DIAS_EM_SEGUNDOS (15 * 24 * 60 * 60)
 
 void emprestarLivro(Emprestimos *emprestimos, int idLivro, int idUtilizador) {
+    // Realocar memoria dinamicamente
+    emprestimos->lista = realloc(emprestimos->lista, (emprestimos->quantidade + 1) * sizeof(Emprestimo));
     // Obtém o último empréstimo na lista (o próximo em que será inserido)
     Emprestimo *ultimoEmprestimo = &(emprestimos->lista[emprestimos->quantidade]);
     // Preenche os detalhes do novo empréstimo
@@ -41,4 +44,8 @@ bool renovarEmprestimo(Emprestimos *emprestimos, int idLivro, int idUtilizador) 
         }
     }
     return false;
+}
+
+void libertarMemoriaEmprestimos(Emprestimos *emprestimos) {
+    free(emprestimos->lista);
 }

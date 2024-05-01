@@ -15,7 +15,7 @@ typedef struct {
 
 // Definição da estrutura para representar os livros emprestados
 typedef struct {
-    Emprestimo lista[100];
+    Emprestimo *lista;
     int quantidade;
 } Emprestimos;
 
@@ -24,5 +24,7 @@ void emprestarLivro(Emprestimos *emprestimos, int idLivro, int idUtilizador);
 bool devolverLivro(Emprestimos *emprestimos, int idLivro, int idUtilizador);
 
 bool renovarEmprestimo(Emprestimos *emprestimos, int idLivro, int idUtilizador);
+
+void libertarMemoriaEmprestimos(Emprestimos *emprestimos);
 
 #endif // GESTAO_EMPRESTIMOS_H

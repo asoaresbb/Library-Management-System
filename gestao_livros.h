@@ -22,4 +22,6 @@ void removerLivro(Acervo *acervo, int id);
 
 Acervo pesquisarLivros(Acervo *acervo, char *pesquisa);
 
+void libertarMemoriaAcervo(Acervo *acervo);
+
 #endif // GESTAO_LIVROS_H

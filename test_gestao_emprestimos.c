@@ -1,7 +1,6 @@
 #include <stdio.h>
 #include "gestao_emprestimos.h"
 #include <assert.h>
-#include <string.h>
 #include <unistd.h>
 #include <stdbool.h>
 
