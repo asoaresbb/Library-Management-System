@@ -15,26 +15,30 @@ void emprestarLivro(Emprestimos *emprestimos, int idLivro, int idUtilizador) {
     emprestimos->quantidade++;
 }
 
-void devolverLivro(Emprestimos *emprestimos, int idLivro, int idUtilizador) {
+bool devolverLivro(Emprestimos *emprestimos, int idLivro, int idUtilizador) {
     // Procura pelo empréstimo correspondente na lista de empréstimos
     for (int i = 0; i < emprestimos->quantidade; i++) {
         Emprestimo *emprestimo = &(emprestimos->lista[i]);
-        if (emprestimo->idLivro == idLivro && emprestimo->idUtilizador == idUtilizador) {
+        if (emprestimo->idLivro == idLivro && emprestimo->idUtilizador == idUtilizador &&
+            emprestimo->dataDevolucao == 0) {
             // Define a data de devolução como a data atual
             emprestimo->dataDevolucao = time(NULL);
-            return;
+            return true;
         }
     }
+    return false;
 }
 
-void renovarEmprestimo(Emprestimos *emprestimos, int idLivro, int idUtilizador) {
+bool renovarEmprestimo(Emprestimos *emprestimos, int idLivro, int idUtilizador) {
     // Procura pelo empréstimo correspondente na lista de empréstimos
     for (int i = 0; i < emprestimos->quantidade; ++i) {
         Emprestimo *emprestimo = &(emprestimos->lista[i]);
-        if (emprestimo->idLivro == idLivro && emprestimo->idUtilizador == idUtilizador) {
+        if (emprestimo->idLivro == idLivro && emprestimo->idUtilizador == idUtilizador &&
+            emprestimo->dataDevolucao == 0) {
             // Define a nova data esperada com mais 5 dias
             emprestimo->dataEsperada = emprestimo->dataEsperada + CINCO_DIAS_EM_SEGUNDOS;
-            return;
+            return true;
         }
     }
+    return false;
 }

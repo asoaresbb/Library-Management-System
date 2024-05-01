@@ -2,6 +2,7 @@
 #define GESTAO_EMPRESTIMOS_H
 
 #include <time.h>
+#include <stdbool.h>
 
 // Definição da estrutura para representar um emprestimo
 typedef struct {
@@ -20,8 +21,8 @@ typedef struct {
 
 void emprestarLivro(Emprestimos *emprestimos, int idLivro, int idUtilizador);
 
-void devolverLivro(Emprestimos *emprestimos, int idLivro, int idUtilizador);
+bool devolverLivro(Emprestimos *emprestimos, int idLivro, int idUtilizador);
 
-void renovarEmprestimo(Emprestimos *emprestimos, int idLivro, int idUtilizador);
+bool renovarEmprestimo(Emprestimos *emprestimos, int idLivro, int idUtilizador);
 
 #endif // GESTAO_EMPRESTIMOS_H
