@@ -9,6 +9,7 @@ typedef struct {
     int idUtilizador;
     time_t data;
     time_t dataDevolucao;
+    time_t dataEsperada;
 } Emprestimo;
 
 // Definição da estrutura para representar os livros emprestados

@@ -244,20 +244,55 @@ void trataDevolverLivro(Acervo acervo, Emprestimos *emprestimos) {
 }
 
 void trataRenovarEmprestimo(Acervo acervo, Emprestimos *emprestimos) {
+    printf(" ❓ Qual o id. do livro a ser renovado? ");
+    int idLivro;
+    if (scanf("%d", &idLivro) != 1) {
+        // Se não foi possível ler um inteiro
+        printf(" ❌ ID do livro inválido. Por favor, insira um número inteiro.\n");
+        // Limpa o buffer de entrada para evitar loops infinitos
+        while (getchar() != '\n');  // Descarta a restante entrada
+        return;
+    }
+    if (obterLivro(&acervo, idLivro) == NULL) {
+        printf(" ℹ️ O livro com id. %d não existe.\n", idLivro);
+        return;
+    }
 
+    printf(" ❓ Qual o id. do utilizador? ");
+    int idUtilizador;
+    if (scanf("%d", &idUtilizador) != 1) {
+        // Se não foi possível ler um inteiro
+        printf(" ❌ ID do utilizador inválido. Por favor, insira um número inteiro.\n");
+        // Limpa o buffer de entrada para evitar loops infinitos
+        while (getchar() != '\n');  // Descarta a restante entrada
+        return;
+    }
+
+    renovarEmprestimo(emprestimos, idLivro, idUtilizador);
+    printf(" ℹ️ Empréstimo renovado com sucesso.\n");
 }
 
 void trataListarEmprestimos(Emprestimos emprestimos, Acervo acervo) {
-    printf("%-35s| %-10s | %s | %s \n", "Livro", "Utilizador", "Emprestado em", "Devolvido em");
+    printf("%-35s| %-10s | %s | %s | %s \n", "Livro", "Utilizador", "Emprestado em", "Devolvido em", "Esperado em");
     for (int i = 0; i < emprestimos.quantidade; i++) {
         Emprestimo emprestimo = emprestimos.lista[i];
         char dataEmprestimoFormatada[11]; // Data de empréstimo formatada como: "YYYY-MM-DD"
-        char dataDevolucaoFormatada[11]; // Data de devolução formatada como: "YYYY-MM-DD"
         strftime(dataEmprestimoFormatada, sizeof(dataEmprestimoFormatada), "%Y-%m-%d", localtime(&emprestimo.data));
-        strftime(dataDevolucaoFormatada, sizeof(dataDevolucaoFormatada), "%Y-%m-%d",
-                 localtime(&emprestimo.dataDevolucao));
+
+        char dataDevolucaoFormatada[11]; // Data de devolução formatada como: "YYYY-MM-DD"
+        if (emprestimo.dataDevolucao > 0) {
+            strftime(dataDevolucaoFormatada, sizeof(dataDevolucaoFormatada), "%Y-%m-%d",
+                     localtime(&emprestimo.dataDevolucao));
+        } else {
+            strcpy(dataDevolucaoFormatada, " -------- ");
+        }
+
+        char dataEsperadaFormatada[11]; // Nova data de devolução após renovação formatada como: "YYYY-MM-DD"
+        strftime(dataEsperadaFormatada, sizeof(dataEsperadaFormatada), "%Y-%m-%d", localtime(&emprestimo.dataEsperada));
         Livro *livro = obterLivro(&acervo, emprestimo.idLivro);
-        printf("%-6d - %-25s | %-10d | %s    | %s \n", emprestimo.idLivro, livro->titulo, emprestimo.idUtilizador,
-               dataEmprestimoFormatada, dataDevolucaoFormatada);
+
+        printf("%-6d - %-25s | %-10d | %s    | %s   | %s \n", emprestimo.idLivro, livro->titulo,
+               emprestimo.idUtilizador,
+               dataEmprestimoFormatada, dataDevolucaoFormatada, dataEsperadaFormatada);
     }
 }
