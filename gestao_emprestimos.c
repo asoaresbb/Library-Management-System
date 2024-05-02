@@ -1,9 +1,76 @@
+#include <stdio.h>
+#include <string.h>
 #include <time.h>
 #include <stdlib.h>
 #include "gestao_emprestimos.h"
 
+#define MAX_EMPRESTIMOS 100
 #define CINCO_DIAS_EM_SEGUNDOS (5 * 24 * 60 * 60)
 #define QUINZE_DIAS_EM_SEGUNDOS (15 * 24 * 60 * 60)
+
+int lerEmprestimosDoCSV(const char *nomeArquivo, Emprestimos *emprestimos) {
+    FILE *arquivo = fopen(nomeArquivo, "r");
+    if (arquivo == NULL) {
+        return 1; // Erro ao abrir o arquivo
+    }
+
+    char linha[256];
+    const char *delim = ",";
+
+    // Variáveis temporárias para armazenar dados lidos do CSV
+    int idLivro, idUtilizador;
+    time_t data, dataDevolucao, dataEsperada;
+
+    emprestimos->quantidade = 0; // Inicializa a quantidade de empréstimos
+
+    // Ler cada linha do arquivo CSV
+    while (fgets(linha, sizeof(linha), arquivo)) {
+        linha[strcspn(linha, "\n")] = '\0';
+
+        // Extrair os dados do empréstimo a partir da linha
+        char *token = strtok(linha, delim); // ID do Livro
+        if (token) {
+            idLivro = atoi(token);
+        }
+
+        token = strtok(NULL, delim); // ID do Utilizador
+        if (token) {
+            idUtilizador = atoi(token);
+        }
+
+        token = strtok(NULL, delim); // Data
+        if (token) {
+            data = (time_t) atol(token);
+        }
+
+        token = strtok(NULL, delim); // Data de Devolução
+        if (token) {
+            dataDevolucao = (time_t) atol(token);
+        }
+
+        token = strtok(NULL, delim); // Data Esperada
+        if (token) {
+            dataEsperada = (time_t) atol(token);
+        }
+
+        // Adicionar empréstimo à lista
+        if (emprestimos->quantidade < MAX_EMPRESTIMOS) {
+            Emprestimo *novoEmprestimo = &emprestimos->lista[emprestimos->quantidade];
+            novoEmprestimo->idLivro = idLivro;
+            novoEmprestimo->idUtilizador = idUtilizador;
+            novoEmprestimo->data = data;
+            novoEmprestimo->dataDevolucao = dataDevolucao;
+            novoEmprestimo->dataEsperada = dataEsperada;
+            emprestimos->quantidade++;
+        } else {
+            // Capacidade máxima atingida
+            break;
+        }
+    }
+
+    fclose(arquivo);
+    return 0; // Sucesso
+}
 
 void emprestarLivro(Emprestimos *emprestimos, int idLivro, int idUtilizador) {
     // Realocar memoria dinamicamente

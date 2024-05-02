@@ -1,7 +1,46 @@
+#include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
 #include "gestao_livros.h"
 #include <ctype.h>
+
+// Função para ler os livros do arquivo CSV e preencher o acervo
+int lerLivrosDoCSV(const char *nomeArquivo, Acervo *acervo) {
+    FILE *arquivo = fopen(nomeArquivo, "r");
+    if (arquivo == NULL) {
+        return 1; // Erro ao abrir o arquivo
+    }
+
+    char linha[256]; // Buffer para armazenar a linha lida do arquivo
+    char *token;
+    const char *delim = ",\"";
+    int id = 1; // Identificador inicial para os livros
+
+    // Ler cada linha do arquivo CSV
+    while (fgets(linha, sizeof(linha), arquivo)) {
+        // Remover o caractere de nova linha (se presente)
+        linha[strcspn(linha, "\n")] = '\0';
+
+        // Extrair cada campo da linha
+        token = strtok(linha, delim); // Título
+        char *titulo = token;
+
+        token = strtok(NULL, delim); // Autor
+        char *autor = token;
+
+        token = strtok(NULL, delim); // Gênero
+        char *genero = token;
+
+        // Se todos os campos foram lidos corretamente, adicionar o livro ao acervo
+        if (titulo && autor && genero) {
+            adicionarLivro(acervo, titulo, autor, genero);
+            id++; // Incrementar o identificador para o próximo livro
+        }
+    }
+
+    fclose(arquivo);
+    return 0; // Sucesso
+}
 
 Livro *obterLivro(Acervo *acervo, int id) {
     // retorna o livro a partir do ID

@@ -15,6 +15,8 @@ typedef struct {
     int quantidade;
 } Acervo;
 
+int lerLivrosDoCSV(const char *nomeArquivo, Acervo *acervo);
+
 Livro *obterLivro(Acervo *acervo, int id);
 
 int adicionarLivro(Acervo *acervo, char *titulo, char *autor, char *genero); // o adicionar retorna o id gerado

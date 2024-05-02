@@ -112,5 +112,5 @@ int main() {
     test_renovar();
     test_renovar_ja_devolvido();
 
-    printf("✅ Testes unitários da emprestimos_livros.c passaram com sucesso!\n");
+    printf("✅  Testes unitários da emprestimos_livros.c passaram com sucesso!\n");
 }

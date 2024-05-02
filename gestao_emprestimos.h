@@ -19,6 +19,8 @@ typedef struct {
     int quantidade;
 } Emprestimos;
 
+int lerEmprestimosDoCSV(const char *nomeArquivo, Emprestimos *emprestimos);
+
 void emprestarLivro(Emprestimos *emprestimos, int idLivro, int idUtilizador);
 
 bool devolverLivro(Emprestimos *emprestimos, int idLivro, int idUtilizador);
