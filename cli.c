@@ -43,8 +43,7 @@ int main() {
     printf("📖 📖 📖  Gestor de Bibilioteca  📖 📖 📖 \n");
     printf("📖 📖 📖 📖 📖 📖 📖 📖 📖 📖 📖 📖 📖 📖\n");
 
-    while (1) {
-        printf("\n");
+    while (true) {
         switch (pedirOpcaoMenu()) {
             case '+':
                 trataAdicionarLivro(&acervo);
@@ -85,7 +84,7 @@ int main() {
 }
 
 char pedirOpcaoMenu() {
-    printf("\n 📝 Escolha uma opção:\n");
+    printf("\n\n 📝 Escolha uma opção:\n");
     printf("   +  Adicionar livro\n");
     printf("   -  Remover livro\n");
     printf("   e  Editar livro\n");
@@ -120,9 +119,8 @@ void trataRemoverLivro(Acervo *acervo, Emprestimos *emprestimos) {
     trataImprimirAcervo(*acervo);
     int idLivroARemover = 0;
     printf(" 📝 Qual o id. do livro a remover? ");
-    if (scanf(" %d", &idLivroARemover) != 1) {
-        // Se não foi possível ler um inteiro
-        printf(" ❌  Id. do livro inválido. Por favor, insira um número inteiro.\n");
+    if (scanf(" %d", &idLivroARemover) != 1) { // Se não foi possível ler um inteiro
+        printf(" ❌  Id. de livro inválido. Por favor, insira um número inteiro.\n");
         return;
     }
 
@@ -147,9 +145,8 @@ void trataEditarLivro(Acervo *acervo) {
     trataImprimirAcervo(*acervo);
     printf("\n 📝 Qual o id. do livro a editar? ");
     int id = 0;
-    if (scanf(" %d", &id) != 1) {
-        // Se não foi possível ler um inteiro
-        printf(" ❌  Id. do livro inválido. Por favor, insira um número inteiro.\n");
+    if (scanf(" %d", &id) != 1) { // Se não foi possível ler um inteiro
+        printf(" ❌  Id. de livro inválido. Por favor, insira um número inteiro.\n");
         return;
     }
 
@@ -202,9 +199,8 @@ void trataImprimirAcervo(Acervo acervo) {
 void trataEmprestarLivro(Acervo acervo, Emprestimos *emprestimos) {
     printf(" 📝 Qual o id. do livro a emprestar? ");
     int idLivro;
-    if (scanf(" %d", &idLivro) != 1) {
-        // Se não foi possível ler um inteiro
-        printf("  ❌ Id. do livro inválido. Por favor, insira um número inteiro.\n");
+    if (scanf(" %d", &idLivro) != 1) { // Se não foi possível ler um inteiro
+        printf("  ❌ Id. de livro inválido. Por favor, insira um número inteiro.\n");
         // Limpa o buffer de entrada para evitar loops infinitos
         return;
     }
@@ -212,11 +208,9 @@ void trataEmprestarLivro(Acervo acervo, Emprestimos *emprestimos) {
         printf(" ⚠️ O livro com id. %d não existe.\n", idLivro);
         return;
     }
-
     printf(" 📝 Qual o id. do utilizador? ");
     int idUtilizador;
-    if (scanf(" %d", &idUtilizador) != 1) {
-        // Se não foi possível ler um inteiro
+    if (scanf(" %d", &idUtilizador) != 1) { // Se não foi possível ler um inteiro
         printf("  ❌ Id. do utilizador inválido. Por favor, insira um número inteiro.\n");
         // Limpa o buffer de entrada para evitar loops infinitos
         return;
@@ -228,9 +222,8 @@ void trataEmprestarLivro(Acervo acervo, Emprestimos *emprestimos) {
 void trataDevolverLivro(Acervo acervo, Emprestimos *emprestimos) {
     printf(" 📝 Qual o id. do livro a ser devolvido? ");
     int idLivro;
-    if (scanf(" %d", &idLivro) != 1) {
-        // Se não foi possível ler um inteiro
-        printf(" ❌ Id. do livro inválido. Por favor, insira um número inteiro.\n");
+    if (scanf(" %d", &idLivro) != 1) { // Se não foi possível ler um inteiro
+        printf(" ❌ Id. de livro inválido. Por favor, insira um número inteiro.\n");
         // Limpa o buffer de entrada para evitar loops infinitos
         return;
     }
@@ -238,15 +231,12 @@ void trataDevolverLivro(Acervo acervo, Emprestimos *emprestimos) {
         printf(" ⚠️ O livro com id. %d não existe.\n", idLivro);
         return;
     }
-
     printf(" 📝 Qual o id. do utilizador? ");
     int idUtilizador;
-    if (scanf(" %d", &idUtilizador) != 1) {
-        // Se não foi possível ler um inteiro
+    if (scanf(" %d", &idUtilizador) != 1) { // Se não foi possível ler um inteiro
         printf(" ❌  Id. do utilizador inválido. Por favor, insira um número inteiro.\n");
         return;
     }
-
     bool devolvido = devolverLivro(emprestimos, idLivro, idUtilizador);
     if (devolvido)
         printf(" ✅  Livro devolvido com sucesso.\n");
@@ -257,24 +247,20 @@ void trataDevolverLivro(Acervo acervo, Emprestimos *emprestimos) {
 void trataRenovarEmprestimo(Acervo acervo, Emprestimos *emprestimos) {
     printf(" 📝 Qual o id. do livro a ser renovado? ");
     int idLivro;
-    if (scanf(" %d", &idLivro) != 1) {
-        // Se não foi possível ler um inteiro
-        printf(" ❌  Id. do livro inválido. Por favor, insira um número inteiro.\n");
+    if (scanf(" %d", &idLivro) != 1) { // Se não foi possível ler um inteiro
+        printf(" ❌  Id. de livro inválido. Por favor, insira um número inteiro.\n");
         return;
     }
     if (obterLivro(&acervo, idLivro) == NULL) {
         printf(" ⚠️ O livro com id. %d não existe.\n", idLivro);
         return;
     }
-
     printf(" 📝 Qual o id. do utilizador? ");
     int idUtilizador;
-    if (scanf(" %d", &idUtilizador) != 1) {
-        // Se não foi possível ler um inteiro
+    if (scanf(" %d", &idUtilizador) != 1) { // Se não foi possível ler um inteiro
         printf(" ❌  Id. do utilizador inválido. Por favor, insira um número inteiro.\n");
         return;
     }
-
     bool renovado = renovarEmprestimo(emprestimos, idLivro, idUtilizador);
     if (renovado)
         printf(" ✅  Empréstimo renovado com sucesso.\n");
