@@ -9,10 +9,11 @@
 
 void criarEmprestimo(Emprestimos *emprestimos, Emprestimo emprestimo)
 {
-    // Realocar memoria dinamicamente
+    // realocar memoria
     emprestimos->lista = realloc(emprestimos->lista, (emprestimos->quantidade + 1) * sizeof(Emprestimo));
     // coloca no próximo em que será inserido
     emprestimos->lista[emprestimos->quantidade] = emprestimo;
+    emprestimos->quantidade++;
 }
 
 int lerEmprestimosDoCSV(const char *nomeFicheiro, Emprestimos *emprestimos) {
@@ -23,14 +24,13 @@ int lerEmprestimosDoCSV(const char *nomeFicheiro, Emprestimos *emprestimos) {
         linha[strcspn(linha, "\n")] = '\0'; // retirar o caracter de mudança de linha
         Emprestimo novoEmprestimo = {};
         // Extrair os dados do empréstimo a partir da linha
-        printf("linha:-%s-\n", linha);
-        if (sscanf(linha, "\"%d\",\"%d\",\"%ld\",\"%ld\",\"%ld\"",
+        sscanf(linha, "%d,%d,%ld,%ld,%ld",
                    &novoEmprestimo.idLivro, &novoEmprestimo.idUtilizador,
-                   &novoEmprestimo.data, &novoEmprestimo.dataDevolucao, &novoEmprestimo.dataEsperada))
-        {
-            criarEmprestimo(emprestimos, novoEmprestimo); // Adicionar empréstimo à lista
-        }
+                   &novoEmprestimo.data, &novoEmprestimo.dataDevolucao, &novoEmprestimo.dataEsperada);
+        printf("linha:|%s|%d\n", linha, novoEmprestimo.idLivro);
+        criarEmprestimo(emprestimos, novoEmprestimo); // Adicionar empréstimo à lista
     }
+    printf("%d", emprestimos->quantidade);
 
     fclose(ficheiro);
     return 0; // Sucesso
@@ -45,9 +45,6 @@ void emprestarLivro(Emprestimos *emprestimos, int idLivro, int idUtilizador) {
     novoEmprestimo.dataEsperada = novoEmprestimo.data + QUINZE_DIAS_EM_SEGUNDOS;
     novoEmprestimo.dataDevolucao = 0;
     criarEmprestimo(emprestimos, novoEmprestimo);
-    // Realocar memoria dinamicamente
-    emprestimos->lista = realloc(emprestimos->lista, (emprestimos->quantidade + 1) * sizeof(Emprestimo));
-    emprestimos->quantidade++;
 }
 
 bool devolverLivro(Emprestimos *emprestimos, int idLivro, int idUtilizador) {
