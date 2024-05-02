@@ -166,7 +166,7 @@ void trataEditarLivro(Acervo *acervo) {
     char textoLido[100]; // Tamanho máximo da linha a ser lida
 
     printf(" 📝 Escreva o novo título (escreva . para manter %s): ", livroEditado->titulo);
-    scanf(" %49[^\n]", textoLido);
+    scanf(" %39[^\n]", textoLido);
     if (strcmp(textoLido, ".") != 0)
         strcpy(livroEditado->titulo, textoLido);
 
@@ -176,7 +176,7 @@ void trataEditarLivro(Acervo *acervo) {
         strcpy(livroEditado->autor, textoLido);
 
     printf(" 📝 Escreva o novo género (escreva . para manter %s): ", livroEditado->genero);
-    scanf(" %19[^\n]", textoLido);
+    scanf(" %39[^\n]", textoLido);
     if (strcmp(textoLido, ".") != 0)
         strcpy(livroEditado->genero, textoLido);
 

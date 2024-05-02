@@ -5,8 +5,7 @@
 #include <assert.h>
 #include "gestao_livros.h"
 
-void criarLivro(Acervo *acervo, Livro livro)
-{
+void criarLivro(Acervo *acervo, Livro livro) {
     acervo->livros = realloc(acervo->livros, (acervo->quantidade + 1) * sizeof(Livro));
     acervo->livros[acervo->quantidade] = livro;
     acervo->quantidade++; // Incrementar o número de livros no Acervo
@@ -39,7 +38,6 @@ Livro *obterLivro(Acervo *acervo, int id) {
     }
     return NULL;
 }
-
 
 int adicionarLivro(Acervo *acervo, char *titulo, char *autor, char *genero) {
     Livro novoLivro = {};
