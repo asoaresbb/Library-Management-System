@@ -303,7 +303,8 @@ void trataListarEmprestimos(Emprestimos emprestimos, Acervo acervo) {
             strcpy(dataEsperadaFormatada, " -------- ");
         }
         Livro *livro = obterLivro(&acervo, emprestimo.idLivro);
-        printf("%-6d - %-25s | %-10d | %s    | %s   | %s \n", emprestimo.idLivro, livro->titulo,
+        printf("%-6d - %-25s | %-10d | %s    | %s   | %s \n", emprestimo.idLivro, 
+               livro == NULL ? "(livro apagado)" : livro->titulo,
                emprestimo.idUtilizador,
                dataEmprestimoFormatada, dataDevolucaoFormatada, dataEsperadaFormatada);
     }
