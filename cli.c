@@ -70,7 +70,7 @@ int main() {
             case 's':
                 libertarMemoriaAcervo(&acervo);
                 libertarMemoriaEmprestimos(&emprestimos);
-                printf(" ℹ️ A sair do programa...\n");
+                printf(" ✅ A sair do programa...\n");
                 return 0;
             default:
                 printf(" ⚠️ Opção inválida.\n");
@@ -81,7 +81,7 @@ int main() {
 }
 
 char pedirOpcaoMenu() {
-    printf("\n ❓ Escolha uma opção:\n");
+    printf("\n 📝 Escolha uma opção:\n");
     printf("   +  Adicionar livro\n");
     printf("   -  Remover livro\n");
     printf("   e  Editar livro\n");
@@ -99,23 +99,23 @@ char pedirOpcaoMenu() {
 }
 
 void trataAdicionarLivro(Acervo *acervo) {
-    printf(" ❓ Escreva o título do livro: ");
+    printf(" 📝 Escreva o título do livro: ");
     char titulo[50];
     scanf(" %49[^\n]", titulo);
-    printf(" ❓ Escreva o autor do livro: ");
+    printf(" 📝 Escreva o autor do livro: ");
     char autor[100];
     scanf(" %99[^\n]", autor);
-    printf(" ❓ Escreva o género do livro: ");
+    printf(" 📝 Escreva o género do livro: ");
     char genero[20];
     scanf(" %19[^\n]", genero);
     adicionarLivro(acervo, titulo, autor, genero);
-    printf(" ℹ️ O livro %s foi adicionado.\n", titulo);
+    printf(" ✅ O livro %s foi adicionado.\n", titulo);
 }
 
 void trataRemoverLivro(Acervo *acervo) {
     trataImprimirAcervo(*acervo);
     int idLivroARemover = 0;
-    printf(" ❓ Qual o id. do livro a remover? ");
+    printf(" 📝 Qual o id. do livro a remover? ");
     if (scanf("%d", &idLivroARemover) != 1) {
         // Se não foi possível ler um inteiro
         printf(" ❌ Id. do livro inválido. Por favor, insira um número inteiro.\n");
@@ -129,13 +129,13 @@ void trataRemoverLivro(Acervo *acervo) {
         return;
     }
     removerLivro(acervo, idLivroARemover);
-    printf(" ℹ️ Livro removido.\n");
+    printf(" ✅ Livro removido.\n");
     return;
 }
 
 void trataEditarLivro(Acervo *acervo) {
     trataImprimirAcervo(*acervo);
-    printf("\n ❓ Qual o id. do livro a editar? ");
+    printf("\n 📝 Qual o id. do livro a editar? ");
     int id = 0;
     if (scanf("%d", &id) != 1) {
         // Se não foi possível ler um inteiro
@@ -152,26 +152,26 @@ void trataEditarLivro(Acervo *acervo) {
     }
     char textoLido[100]; // Tamanho máximo da linha a ser lida
 
-    printf(" ❓ Escreva o novo título (escreva . para manter %s): ", livroEditado->titulo);
+    printf(" 📝 Escreva o novo título (escreva . para manter %s): ", livroEditado->titulo);
     scanf(" %49[^\n]", textoLido);
     if (strcmp(textoLido, ".") != 0)
         strcpy(livroEditado->titulo, textoLido);
 
-    printf(" ❓ Escreva o novo autor (escreva . para manter %s): ", livroEditado->autor);
+    printf(" 📝 Escreva o novo autor (escreva . para manter %s): ", livroEditado->autor);
     scanf(" %99[^\n]", textoLido);
     if (strcmp(textoLido, ".") != 0)
         strcpy(livroEditado->autor, textoLido);
 
-    printf(" ❓ Escreva o novo género (escreva . para manter %s): ", livroEditado->genero);
+    printf(" 📝 Escreva o novo género (escreva . para manter %s): ", livroEditado->genero);
     scanf(" %19[^\n]", textoLido);
     if (strcmp(textoLido, ".") != 0)
         strcpy(livroEditado->genero, textoLido);
 
-    printf(" ℹ️ Livro %s atualizado.\n", livroEditado->titulo);
+    printf(" ✅ Livro %s atualizado.\n", livroEditado->titulo);
 }
 
 void trataPesquisarLivro(Acervo *acervo) {
-    printf(" ❓ Escreva o texto a pesquisar (por título, autor ou tipo): ");
+    printf(" 📝 Escreva o texto a pesquisar (por título, autor ou tipo): ");
     char textoPesquisa[40];
     scanf("%s", textoPesquisa);
     Acervo resultados = pesquisarLivros(acervo, textoPesquisa);
@@ -180,7 +180,7 @@ void trataPesquisarLivro(Acervo *acervo) {
 
 void trataImprimirAcervo(Acervo acervo) {
     if (acervo.quantidade == 0)
-        printf(" ℹ️ A lista de livros está vazia.\n");
+        printf(" ✅ A lista de livros está vazia.\n");
 
     for (int i = 0; i < acervo.quantidade; i++) {
         printf("%d: %s (%s)\n", acervo.livros[i].id, acervo.livros[i].titulo, acervo.livros[i].autor);
@@ -189,7 +189,7 @@ void trataImprimirAcervo(Acervo acervo) {
 }
 
 void trataEmprestarLivro(Acervo acervo, Emprestimos *emprestimos) {
-    printf(" ❓ Qual o id. do livro a emprestar? ");
+    printf(" 📝 Qual o id. do livro a emprestar? ");
     int idLivro;
     if (scanf("%d", &idLivro) != 1) {
         // Se não foi possível ler um inteiro
@@ -203,7 +203,7 @@ void trataEmprestarLivro(Acervo acervo, Emprestimos *emprestimos) {
         return;
     }
 
-    printf(" ❓ Qual o id. do utilizador? ");
+    printf(" 📝 Qual o id. do utilizador? ");
     int idUtilizador;
     if (scanf("%d", &idUtilizador) != 1) {
         // Se não foi possível ler um inteiro
@@ -217,7 +217,7 @@ void trataEmprestarLivro(Acervo acervo, Emprestimos *emprestimos) {
 }
 
 void trataDevolverLivro(Acervo acervo, Emprestimos *emprestimos) {
-    printf(" ❓ Qual o id. do livro a ser devolvido? ");
+    printf(" 📝 Qual o id. do livro a ser devolvido? ");
     int idLivro;
     if (scanf("%d", &idLivro) != 1) {
         // Se não foi possível ler um inteiro
@@ -231,7 +231,7 @@ void trataDevolverLivro(Acervo acervo, Emprestimos *emprestimos) {
         return;
     }
 
-    printf(" ❓ Qual o id. do utilizador? ");
+    printf(" 📝 Qual o id. do utilizador? ");
     int idUtilizador;
     if (scanf("%d", &idUtilizador) != 1) {
         // Se não foi possível ler um inteiro
@@ -243,13 +243,13 @@ void trataDevolverLivro(Acervo acervo, Emprestimos *emprestimos) {
 
     bool devolvido = devolverLivro(emprestimos, idLivro, idUtilizador);
     if (devolvido)
-        printf(" ℹ️ Livro devolvido com sucesso.\n");
+        printf(" ✅ Livro devolvido com sucesso.\n");
     else
         printf(" ⚠️ Empréstimo não encontrado.\n");
 }
 
 void trataRenovarEmprestimo(Acervo acervo, Emprestimos *emprestimos) {
-    printf(" ❓ Qual o id. do livro a ser renovado? ");
+    printf(" 📝 Qual o id. do livro a ser renovado? ");
     int idLivro;
     if (scanf("%d", &idLivro) != 1) {
         // Se não foi possível ler um inteiro
@@ -263,7 +263,7 @@ void trataRenovarEmprestimo(Acervo acervo, Emprestimos *emprestimos) {
         return;
     }
 
-    printf(" ❓ Qual o id. do utilizador? ");
+    printf(" 📝 Qual o id. do utilizador? ");
     int idUtilizador;
     if (scanf("%d", &idUtilizador) != 1) {
         // Se não foi possível ler um inteiro
@@ -275,7 +275,7 @@ void trataRenovarEmprestimo(Acervo acervo, Emprestimos *emprestimos) {
 
     bool renovado = renovarEmprestimo(emprestimos, idLivro, idUtilizador);
     if (renovado)
-        printf(" ℹ️ Empréstimo renovado com sucesso.\n");
+        printf(" ✅ Empréstimo renovado com sucesso.\n");
     else
         printf(" ⚠️ Empréstimo não encontrado.\n");
 }
@@ -294,11 +294,15 @@ void trataListarEmprestimos(Emprestimos emprestimos, Acervo acervo) {
         } else {
             strcpy(dataDevolucaoFormatada, " -------- ");
         }
-
         char dataEsperadaFormatada[11]; // Nova data de devolução após renovação formatada como: "YYYY-MM-DD"
-        strftime(dataEsperadaFormatada, sizeof(dataEsperadaFormatada), "%Y-%m-%d", localtime(&emprestimo.dataEsperada));
+        if (emprestimo.dataEsperada > 0) {
+            strftime(dataEsperadaFormatada, sizeof(dataEsperadaFormatada), "%Y-%m-%d",
+                     localtime(&emprestimo.dataEsperada));
+        }
+        else {
+            strcpy(dataEsperadaFormatada, " -------- ");
+        }
         Livro *livro = obterLivro(&acervo, emprestimo.idLivro);
-
         printf("%-6d - %-25s | %-10d | %s    | %s   | %s \n", emprestimo.idLivro, livro->titulo,
                emprestimo.idUtilizador,
                dataEmprestimoFormatada, dataDevolucaoFormatada, dataEsperadaFormatada);

@@ -27,6 +27,7 @@ bool devolverLivro(Emprestimos *emprestimos, int idLivro, int idUtilizador) {
             emprestimo->dataDevolucao == 0) {
             // Define a data de devolução como a data atual
             emprestimo->dataDevolucao = time(NULL);
+            emprestimo->dataEsperada = 0;
             return true;
         }
     }

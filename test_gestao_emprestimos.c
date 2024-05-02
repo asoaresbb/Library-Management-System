@@ -28,6 +28,7 @@ void test_devolver() {
     bool devolvido = devolverLivro(&emprestimos, 123, 987);
 
     assert(devolvido);
+    assert(emprestimos.lista[0].dataEsperada == 0);
     assert(emprestimos.lista[0].dataDevolucao > emprestimos.lista[0].data);
     assert(1 == emprestimos.quantidade);
 }
