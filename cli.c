@@ -29,13 +29,13 @@ int main() {
     Acervo acervo = {};
     int erroLivro = lerLivrosDoCSV("./livros.csv", &acervo);
     if (erroLivro) {
-        printf("❌ Erro ao abrir o ficheiro de livros.\n");
+        printf("❌  Erro ao abrir o ficheiro de livros.\n");
         return 1;
     }
     Emprestimos emprestimos = {};
     int erroEmprestimos = lerEmprestimosDoCSV("./emprestimos.csv", &emprestimos);
     if (erroEmprestimos) {
-        printf("❌ Erro ao abrir o ficheiro de empréstimos.\n");
+        printf("❌  Erro ao abrir o ficheiro de empréstimos.\n");
         return 1;
     }
 
@@ -142,7 +142,6 @@ void trataRemoverLivro(Acervo *acervo, Emprestimos *emprestimos) {
 }
 
 void trataEditarLivro(Acervo *acervo) {
-    trataImprimirAcervo(*acervo);
     printf("\n 📝 Qual o id. do livro a editar? ");
     int id = 0;
     if (scanf(" %d", &id) != 1) { // Se não foi possível ler um inteiro
@@ -200,7 +199,7 @@ void trataEmprestarLivro(Acervo acervo, Emprestimos *emprestimos) {
     printf(" 📝 Qual o id. do livro a emprestar? ");
     int idLivro;
     if (scanf(" %d", &idLivro) != 1) { // Se não foi possível ler um inteiro
-        printf("  ❌ Id. de livro inválido. Por favor, insira um número inteiro.\n");
+        printf("  ❌  Id. de livro inválido. Por favor, insira um número inteiro.\n");
         // Limpa o buffer de entrada para evitar loops infinitos
         return;
     }
@@ -211,7 +210,7 @@ void trataEmprestarLivro(Acervo acervo, Emprestimos *emprestimos) {
     printf(" 📝 Qual o id. do utilizador? ");
     int idUtilizador;
     if (scanf(" %d", &idUtilizador) != 1) { // Se não foi possível ler um inteiro
-        printf("  ❌ Id. do utilizador inválido. Por favor, insira um número inteiro.\n");
+        printf("  ❌  Id. do utilizador inválido. Por favor, insira um número inteiro.\n");
         // Limpa o buffer de entrada para evitar loops infinitos
         return;
     }
@@ -223,7 +222,7 @@ void trataDevolverLivro(Acervo acervo, Emprestimos *emprestimos) {
     printf(" 📝 Qual o id. do livro a ser devolvido? ");
     int idLivro;
     if (scanf(" %d", &idLivro) != 1) { // Se não foi possível ler um inteiro
-        printf(" ❌ Id. de livro inválido. Por favor, insira um número inteiro.\n");
+        printf(" ❌  Id. de livro inválido. Por favor, insira um número inteiro.\n");
         // Limpa o buffer de entrada para evitar loops infinitos
         return;
     }
