@@ -19,8 +19,8 @@ int lerLivrosDoCSV(const char *nomeFicheiro, Acervo *acervo) {
     while (fgets(linha, sizeof(linha), ficheiro)) {
         linha[strcspn(linha, "\n")] = '\0';
         Livro tempLivro = {0};
-        printf("linha: --%s---\n", linha);
-        sscanf(linha, "\"%d\",\"%s\",\"%s\",\"%s\"", &tempLivro.id, tempLivro.titulo, tempLivro.autor, tempLivro.genero);
+        // printf("linha: --%s---\n", linha);
+        sscanf(linha, "\"%d\",\"%99[^\"]\",\"%99[^\"]\",\"%24[^\"]\"", &tempLivro.id, tempLivro.titulo, tempLivro.autor, tempLivro.genero);
         criarLivro(acervo, tempLivro);
     }
     fclose(ficheiro);
