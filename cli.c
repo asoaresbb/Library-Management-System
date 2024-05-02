@@ -199,11 +199,7 @@ void trataPesquisarLivro(Acervo *acervo) {
     libertarMemoriaAcervo(&resultados);
 }
 
-
 void trataImprimirAcervo(Acervo acervo) {
-    if (acervo.quantidade == 0)
-        printf(" ✅  A lista de livros está vazia.\n");
-
     for (int i = 0; i < acervo.quantidade; i++) {
         printf("%d: %s (%s)\n", acervo.livros[i].id, acervo.livros[i].titulo, acervo.livros[i].autor);
         printf("   %s\n", acervo.livros[i].genero);
