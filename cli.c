@@ -150,8 +150,6 @@ void trataEditarLivro(Acervo *acervo) {
     if (scanf(" %d", &id) != 1) {
         // Se não foi possível ler um inteiro
         printf(" ❌  Id. do livro inválido. Por favor, insira um número inteiro.\n");
-        // Limpa o buffer de entrada para evitar loops infinitos
-        while (getchar() != '\n'); // Descarta a restante entrada
         return;
     }
 
