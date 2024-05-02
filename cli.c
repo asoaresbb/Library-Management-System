@@ -76,7 +76,7 @@ int main() {
             case 's':
                 libertarMemoriaAcervo(&acervo);
                 libertarMemoriaEmprestimos(&emprestimos);
-                printf(" ✅ A sair do programa...\n");
+                printf(" ✅  A sair do programa...\n");
                 return 0;
             default:
                 printf(" ⚠️ Opção inválida.\n");
@@ -113,7 +113,7 @@ void trataAdicionarLivro(Acervo *acervo) {
     char genero[20];
     scanf(" %19[^\n]", genero);
     adicionarLivro(acervo, titulo, autor, genero);
-    printf(" ✅ O livro %s foi adicionado.\n", titulo);
+    printf(" ✅  O livro %s foi adicionado.\n", titulo);
 }
 
 void trataRemoverLivro(Acervo *acervo, Emprestimos *emprestimos) {
@@ -142,7 +142,7 @@ void trataRemoverLivro(Acervo *acervo, Emprestimos *emprestimos) {
 
     // Se não houver empréstimos ativos, proceda com a remoção
     removerLivro(acervo, idLivroARemover);
-    printf(" ✅ Livro removido.\n");
+    printf(" ✅  Livro removido.\n");
     return;
 }
 
@@ -180,7 +180,7 @@ void trataEditarLivro(Acervo *acervo) {
     if (strcmp(textoLido, ".") != 0)
         strcpy(livroEditado->genero, textoLido);
 
-    printf(" ✅ Livro %s atualizado.\n", livroEditado->titulo);
+    printf(" ✅  Livro %s atualizado.\n", livroEditado->titulo);
 }
 
 void trataPesquisarLivro(Acervo *acervo) {
@@ -189,12 +189,14 @@ void trataPesquisarLivro(Acervo *acervo) {
     scanf("%s", textoPesquisa);
     Acervo resultados = pesquisarLivros(acervo, textoPesquisa);
     trataImprimirAcervo(resultados);
+    free(resultados.livros);
 }
 
 void trataImprimirAcervo(Acervo acervo) {
-    if (acervo.quantidade == 0)
-        printf(" ✅ A lista de livros está vazia.\n");
-
+    if (acervo.quantidade == 0) {
+        printf(" ✅  A lista de livros está vazia.\n");
+        return;
+    }
     for (int i = 0; i < acervo.quantidade; i++) {
         printf("%d: %s (%s)\n", acervo.livros[i].id, acervo.livros[i].titulo, acervo.livros[i].autor);
         printf("   %s\n", acervo.livros[i].genero);
@@ -256,7 +258,7 @@ void trataDevolverLivro(Acervo acervo, Emprestimos *emprestimos) {
 
     bool devolvido = devolverLivro(emprestimos, idLivro, idUtilizador);
     if (devolvido)
-        printf(" ✅ Livro devolvido com sucesso.\n");
+        printf(" ✅  Livro devolvido com sucesso.\n");
     else
         printf(" ⚠️ Empréstimo não encontrado.\n");
 }
@@ -288,7 +290,7 @@ void trataRenovarEmprestimo(Acervo acervo, Emprestimos *emprestimos) {
 
     bool renovado = renovarEmprestimo(emprestimos, idLivro, idUtilizador);
     if (renovado)
-        printf(" ✅ Empréstimo renovado com sucesso.\n");
+        printf(" ✅  Empréstimo renovado com sucesso.\n");
     else
         printf(" ⚠️ Empréstimo não encontrado.\n");
 }
