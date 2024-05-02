@@ -9,7 +9,7 @@ char pedirOpcaoMenu();
 
 void trataAdicionarLivro(Acervo *acervo);
 
-void trataRemoverLivro(Acervo *acervo);
+void trataRemoverLivro(Acervo *acervo, Emprestimos *emprestimos);
 
 void trataEditarLivro(Acervo *acervo);
 
@@ -26,8 +26,8 @@ void trataRenovarEmprestimo(Acervo acervo, Emprestimos *emprestimos);
 void trataListarEmprestimos(Emprestimos emprestimos, Acervo acervo);
 
 int main() {
+    // TODO Lista com livros (substituir por CSV)
     Acervo acervo = {};
-    // Adicionando pratos manualmente (substituir por CSV)
     adicionarLivro(&acervo, "Linguagem C", "Luís Damas", "literatura técnica");
     adicionarLivro(&acervo, "jQuery", "Luís Soares", "literatura técnica");
 
@@ -44,7 +44,7 @@ int main() {
                 trataAdicionarLivro(&acervo);
                 break;
             case '-':
-                trataRemoverLivro(&acervo);
+                trataRemoverLivro(&acervo, &emprestimos);
                 break;
             case 'e':
                 trataEditarLivro(&acervo);
@@ -112,7 +112,7 @@ void trataAdicionarLivro(Acervo *acervo) {
     printf(" ✅ O livro %s foi adicionado.\n", titulo);
 }
 
-void trataRemoverLivro(Acervo *acervo) {
+void trataRemoverLivro(Acervo *acervo, Emprestimos *emprestimos) {
     trataImprimirAcervo(*acervo);
     int idLivroARemover = 0;
     printf(" 📝 Qual o id. do livro a remover? ");
@@ -124,10 +124,19 @@ void trataRemoverLivro(Acervo *acervo) {
         return;
     }
 
+    // Verifica se o id fornecido existe no acervo
     if (obterLivro(acervo, idLivroARemover) == NULL) {
         printf(" ⚠️ O livro com id. %d não existe.\n", idLivroARemover);
         return;
     }
+
+    // Verifica se há empréstimos ativos para este livro
+    if (existeEmprestimosAtivos(emprestimos, idLivroARemover)) {
+        printf(" ⚠️ Não é possível remover o livro. Existem empréstimos ativos para este livro.\n");
+        return;
+    }
+
+    // Se não houver empréstimos ativos, proceda com a remoção
     removerLivro(acervo, idLivroARemover);
     printf(" ✅ Livro removido.\n");
     return;
@@ -298,12 +307,11 @@ void trataListarEmprestimos(Emprestimos emprestimos, Acervo acervo) {
         if (emprestimo.dataEsperada > 0) {
             strftime(dataEsperadaFormatada, sizeof(dataEsperadaFormatada), "%Y-%m-%d",
                      localtime(&emprestimo.dataEsperada));
-        }
-        else {
+        } else {
             strcpy(dataEsperadaFormatada, " -------- ");
         }
         Livro *livro = obterLivro(&acervo, emprestimo.idLivro);
-        printf("%-6d - %-25s | %-10d | %s    | %s   | %s \n", emprestimo.idLivro, 
+        printf("%-6d - %-25s | %-10d | %s    | %s   | %s \n", emprestimo.idLivro,
                livro == NULL ? "(livro apagado)" : livro->titulo,
                emprestimo.idUtilizador,
                dataEmprestimoFormatada, dataDevolucaoFormatada, dataEsperadaFormatada);

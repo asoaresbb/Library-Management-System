@@ -48,6 +48,17 @@ bool renovarEmprestimo(Emprestimos *emprestimos, int idLivro, int idUtilizador) 
     return false;
 }
 
+bool existeEmprestimosAtivos(Emprestimos *emprestimos, int idLivro) {
+    for (int i = 0; i < emprestimos->quantidade; ++i) {
+        Emprestimo *emprestimo = &(emprestimos->lista[i]);
+        if (emprestimo->idLivro == idLivro && emprestimo->dataDevolucao == 0) {
+            // Se encontrar um empréstimo ativo para o livro especificado
+            return true;
+        }
+    }
+    return false;
+}
+
 void libertarMemoriaEmprestimos(Emprestimos *emprestimos) {
     free(emprestimos->lista);
 }

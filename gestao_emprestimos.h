@@ -25,6 +25,8 @@ bool devolverLivro(Emprestimos *emprestimos, int idLivro, int idUtilizador);
 
 bool renovarEmprestimo(Emprestimos *emprestimos, int idLivro, int idUtilizador);
 
+bool existeEmprestimosAtivos(Emprestimos *emprestimos, int idLivro);
+
 void libertarMemoriaEmprestimos(Emprestimos *emprestimos);
 
 #endif // GESTAO_EMPRESTIMOS_H
