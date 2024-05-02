@@ -187,9 +187,7 @@ void trataPesquisarLivro(Acervo *acervo) {
     printf(" 📝 Escreva o texto a pesquisar (por título, autor ou tipo): ");
     char textoPesquisa[40];
     scanf("%39s", textoPesquisa); // Limita a leitura para evitar que o buffer rebente
-
     Acervo resultados = pesquisarLivros(acervo, textoPesquisa);
-
     if (resultados.quantidade == 0) {
         printf(" ✅  Não há resultados para a sua pesquisa.\n");
     } else {
