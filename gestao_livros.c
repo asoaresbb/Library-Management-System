@@ -1,8 +1,9 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
-#include "gestao_livros.h"
 #include <ctype.h>
+#include <assert.h>
+#include "gestao_livros.h"
 
 void criarLivro(Acervo *acervo, Livro livro)
 {
@@ -19,11 +20,13 @@ int lerLivrosDoCSV(const char *nomeFicheiro, Acervo *acervo) {
     while (fgets(linha, sizeof(linha), ficheiro)) {
         linha[strcspn(linha, "\n")] = '\0';
         Livro tempLivro = {0};
-        // printf("linha: --%s---\n", linha);
-        sscanf(linha, "\"%d\",\"%99[^\"]\",\"%99[^\"]\",\"%24[^\"]\"", &tempLivro.id, tempLivro.titulo, tempLivro.autor, tempLivro.genero);
+        tempLivro.id = atoi(strtok(linha, ","));
+        strcpy(tempLivro.titulo, strtok(NULL, ","));
+        strcpy(tempLivro.autor, strtok(NULL, ","));
+        strcpy(tempLivro.genero, strtok(NULL, ","));
         criarLivro(acervo, tempLivro);
     }
-    fclose(ficheiro);
+    assert(!fclose(ficheiro));
     return 0; // Sucesso
 }
 

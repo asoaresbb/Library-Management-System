@@ -2,6 +2,7 @@
 #include <string.h>
 #include <time.h>
 #include <stdlib.h>
+#include <assert.h>
 #include "gestao_emprestimos.h"
 
 #define CINCO_DIAS_EM_SEGUNDOS (5 * 24 * 60 * 60)
@@ -27,12 +28,9 @@ int lerEmprestimosDoCSV(const char *nomeFicheiro, Emprestimos *emprestimos) {
         sscanf(linha, "%d,%d,%ld,%ld,%ld",
                    &novoEmprestimo.idLivro, &novoEmprestimo.idUtilizador,
                    &novoEmprestimo.data, &novoEmprestimo.dataDevolucao, &novoEmprestimo.dataEsperada);
-        printf("linha:|%s|%d\n", linha, novoEmprestimo.idLivro);
         criarEmprestimo(emprestimos, novoEmprestimo); // Adicionar empréstimo à lista
     }
-    printf("%d", emprestimos->quantidade);
-
-    fclose(ficheiro);
+    assert(!fclose(ficheiro));
     return 0; // Sucesso
 }
 
