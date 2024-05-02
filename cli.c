@@ -82,11 +82,6 @@ int main() {
                 printf(" ⚠️ Opção inválida.\n");
         }
     }
-    printf("\n");
-
-    free(acervo.livros);
-    free(emprestimos.lista);
-    return 0;
 }
 
 char pedirOpcaoMenu() {
