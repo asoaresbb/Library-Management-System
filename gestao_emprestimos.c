@@ -4,85 +4,49 @@
 #include <stdlib.h>
 #include "gestao_emprestimos.h"
 
-#define MAX_EMPRESTIMOS 100
 #define CINCO_DIAS_EM_SEGUNDOS (5 * 24 * 60 * 60)
 #define QUINZE_DIAS_EM_SEGUNDOS (15 * 24 * 60 * 60)
 
-int lerEmprestimosDoCSV(const char *nomeArquivo, Emprestimos *emprestimos) {
-    FILE *arquivo = fopen(nomeArquivo, "r");
-    if (arquivo == NULL) {
-        return 1; // Erro ao abrir o arquivo
-    }
+void criarEmprestimo(Emprestimos *emprestimos, Emprestimo emprestimo)
+{
+    // Realocar memoria dinamicamente
+    emprestimos->lista = realloc(emprestimos->lista, (emprestimos->quantidade + 1) * sizeof(Emprestimo));
+    // coloca no próximo em que será inserido
+    emprestimos->lista[emprestimos->quantidade] = emprestimo;
+}
 
+int lerEmprestimosDoCSV(const char *nomeFicheiro, Emprestimos *emprestimos) {
+    FILE *ficheiro = fopen(nomeFicheiro, "r");
+    if (ficheiro == NULL) return 1; // Erro ao abrir o ficheiro
     char linha[256];
-    const char *delim = ",";
-
-    // Variáveis temporárias para armazenar dados lidos do CSV
-    int idLivro, idUtilizador;
-    time_t data, dataDevolucao, dataEsperada;
-
-    emprestimos->quantidade = 0; // Inicializa a quantidade de empréstimos
-
-    // Ler cada linha do arquivo CSV
-    while (fgets(linha, sizeof(linha), arquivo)) {
-        linha[strcspn(linha, "\n")] = '\0';
-
+    while (fgets(linha, sizeof(linha), ficheiro)) {
+        linha[strcspn(linha, "\n")] = '\0'; // retirar o caracter de mudança de linha
+        Emprestimo novoEmprestimo = {};
         // Extrair os dados do empréstimo a partir da linha
-        char *token = strtok(linha, delim); // ID do Livro
-        if (token) {
-            idLivro = atoi(token);
-        }
-
-        token = strtok(NULL, delim); // ID do Utilizador
-        if (token) {
-            idUtilizador = atoi(token);
-        }
-
-        token = strtok(NULL, delim); // Data
-        if (token) {
-            data = (time_t) atol(token);
-        }
-
-        token = strtok(NULL, delim); // Data de Devolução
-        if (token) {
-            dataDevolucao = (time_t) atol(token);
-        }
-
-        token = strtok(NULL, delim); // Data Esperada
-        if (token) {
-            dataEsperada = (time_t) atol(token);
-        }
-
-        // Adicionar empréstimo à lista
-        if (emprestimos->quantidade < MAX_EMPRESTIMOS) {
-            Emprestimo *novoEmprestimo = &emprestimos->lista[emprestimos->quantidade];
-            novoEmprestimo->idLivro = idLivro;
-            novoEmprestimo->idUtilizador = idUtilizador;
-            novoEmprestimo->data = data;
-            novoEmprestimo->dataDevolucao = dataDevolucao;
-            novoEmprestimo->dataEsperada = dataEsperada;
-            emprestimos->quantidade++;
-        } else {
-            // Capacidade máxima atingida
-            break;
+        printf("linha:-%s-\n", linha);
+        if (sscanf(linha, "\"%d\",\"%d\",\"%ld\",\"%ld\",\"%ld\"",
+                   &novoEmprestimo.idLivro, &novoEmprestimo.idUtilizador,
+                   &novoEmprestimo.data, &novoEmprestimo.dataDevolucao, &novoEmprestimo.dataEsperada))
+        {
+            criarEmprestimo(emprestimos, novoEmprestimo); // Adicionar empréstimo à lista
         }
     }
 
-    fclose(arquivo);
+    fclose(ficheiro);
     return 0; // Sucesso
 }
 
 void emprestarLivro(Emprestimos *emprestimos, int idLivro, int idUtilizador) {
+    Emprestimo novoEmprestimo = {0};
+    // Preenche os detalhes do novo empréstimo
+    novoEmprestimo.idLivro = idLivro;
+    novoEmprestimo.idUtilizador = idUtilizador;
+    novoEmprestimo.data = time(NULL); // Obter a data atual como data de empréstimo
+    novoEmprestimo.dataEsperada = novoEmprestimo.data + QUINZE_DIAS_EM_SEGUNDOS;
+    novoEmprestimo.dataDevolucao = 0;
+    criarEmprestimo(emprestimos, novoEmprestimo);
     // Realocar memoria dinamicamente
     emprestimos->lista = realloc(emprestimos->lista, (emprestimos->quantidade + 1) * sizeof(Emprestimo));
-    // Obtém o último empréstimo na lista (o próximo em que será inserido)
-    Emprestimo *ultimoEmprestimo = &(emprestimos->lista[emprestimos->quantidade]);
-    // Preenche os detalhes do novo empréstimo
-    ultimoEmprestimo->idLivro = idLivro;
-    ultimoEmprestimo->idUtilizador = idUtilizador;
-    ultimoEmprestimo->data = time(NULL); // Obter a data atual como data de empréstimo
-    ultimoEmprestimo->dataEsperada = ultimoEmprestimo->data + QUINZE_DIAS_EM_SEGUNDOS;
-    ultimoEmprestimo->dataDevolucao = 0;
     emprestimos->quantidade++;
 }
 

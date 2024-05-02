@@ -28,14 +28,13 @@ void trataListarEmprestimos(Emprestimos emprestimos, Acervo acervo);
 int main() {
     Acervo acervo = {};
     int erroLivro = lerLivrosDoCSV("./livros.csv", &acervo);
-    if (erroLivro != 0) {
+    if (erroLivro) {
         printf("❌  Erro ao abrir o ficheiro de livros.\n");
         return 1;
     }
-
     Emprestimos emprestimos = {};
     int erroEmprestimos = lerEmprestimosDoCSV("./emprestimos.csv", &emprestimos);
-    if (erroEmprestimos != 0) {
+    if (erroEmprestimos) {
         printf("❌  Erro ao abrir o ficheiro de empréstimos.\n");
         return 1;
     }

@@ -8,7 +8,7 @@
 #define CINCO_DIAS_EM_SEGUNDOS (5 * 24 * 60 * 60)
 
 void test_emprestar() {
-    Emprestimos emprestimos = {};
+    Emprestimos emprestimos = {0};
 
     emprestarLivro(&emprestimos, 123, 987);
 

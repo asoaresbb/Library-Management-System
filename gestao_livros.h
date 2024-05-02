@@ -3,9 +3,9 @@
 
 // Definição da estrutura para representar um livro
 typedef struct {
-    char titulo[50];
+    char titulo[100];
     char autor[100];
-    char genero[20];
+    char genero[25];
     int id;
 } Livro;
 

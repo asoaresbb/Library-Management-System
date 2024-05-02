@@ -4,41 +4,31 @@
 #include "gestao_livros.h"
 #include <ctype.h>
 
-// Função para ler os livros do arquivo CSV e preencher o acervo
-int lerLivrosDoCSV(const char *nomeArquivo, Acervo *acervo) {
-    FILE *arquivo = fopen(nomeArquivo, "r");
-    if (arquivo == NULL) {
-        return 1; // Erro ao abrir o arquivo
-    }
+void criarLivro(Acervo *acervo, Livro livro)
+{
+    acervo->livros = realloc(acervo->livros, (acervo->quantidade + 1) * sizeof(Livro));
+    acervo->livros[acervo->quantidade] = livro;
+    acervo->quantidade++; // Incrementar o número de livros no Acervo
+}
 
-    char linha[256]; // Buffer para armazenar a linha lida do arquivo
-    char *token;
-    const char *delim = ",\"";
-    int id = 1; // Identificador inicial para os livros
-
-    // Ler cada linha do arquivo CSV
-    while (fgets(linha, sizeof(linha), arquivo)) {
-        // Remover o caractere de nova linha (se presente)
+// Ler os livros do ficheiro CSV e preencher um acervo
+int lerLivrosDoCSV(const char *nomeFicheiro, Acervo *acervo) {
+    FILE *ficheiro = fopen(nomeFicheiro, "r");
+    if (ficheiro == NULL) return 1; // Erro ao abrir o ficheiro
+    char linha[256]; // Buffer para armazenar a linha lida do ficheiro
+    while (fgets(linha, sizeof(linha), ficheiro)) {
         linha[strcspn(linha, "\n")] = '\0';
-
-        // Extrair cada campo da linha
-        token = strtok(linha, delim); // Título
-        char *titulo = token;
-
-        token = strtok(NULL, delim); // Autor
-        char *autor = token;
-
-        token = strtok(NULL, delim); // Gênero
-        char *genero = token;
-
-        // Se todos os campos foram lidos corretamente, adicionar o livro ao acervo
-        if (titulo && autor && genero) {
-            adicionarLivro(acervo, titulo, autor, genero);
-            id++; // Incrementar o identificador para o próximo livro
+        Livro tempLivro = {};
+        printf("l --%s---\n", linha);
+        printf("x %d---\n", sscanf(linha, "%d,%s,%s,%s", &tempLivro.id, tempLivro.titulo, tempLivro.autor, tempLivro.genero));
+        if (sscanf(linha, "%d,%s,%s,%s", &tempLivro.id, tempLivro.titulo, tempLivro.autor, tempLivro.genero))
+        {
+            // printf("%d - linha: -%s-\n", i, linha);
+            // printf("%d livro: -%d,%s,%s,%s-\n\n\n", i, tempLivro.id, tempLivro.titulo, tempLivro.autor, tempLivro.genero);
+            criarLivro(acervo, tempLivro);
         }
     }
-
-    fclose(arquivo);
+    fclose(ficheiro);
     return 0; // Sucesso
 }
 
@@ -52,7 +42,9 @@ Livro *obterLivro(Acervo *acervo, int id) {
     return NULL;
 }
 
+
 int adicionarLivro(Acervo *acervo, char *titulo, char *autor, char *genero) {
+    Livro novoLivro = {};
     // Procurar maior id
     int maiorId = 0;
     for (int i = 0; i < acervo->quantidade; ++i) {
@@ -60,17 +52,13 @@ int adicionarLivro(Acervo *acervo, char *titulo, char *autor, char *genero) {
             maiorId = acervo->livros[i].id;
         }
     }
+    novoLivro.id = maiorId + 1;
+    strcpy(novoLivro.titulo, titulo);
+    strcpy(novoLivro.autor, autor);
+    strcpy(novoLivro.genero, genero);
+    criarLivro(acervo, novoLivro);
 
-    acervo->livros = realloc(acervo->livros, (acervo->quantidade + 1) * sizeof(Livro));
-
-    Livro *ultimoLivro = &(acervo->livros[acervo->quantidade]);
-    ultimoLivro->id = maiorId + 1; // id do próximo livro será maior que o anterior
-    strcpy(ultimoLivro->titulo, titulo);
-    strcpy(ultimoLivro->autor, autor);
-    strcpy(ultimoLivro->genero, genero);
-    acervo->quantidade++; // Incrementar o número de livros no Acervo
-
-    return ultimoLivro->id;
+    return novoLivro.id;
 }
 
 void removerLivro(Acervo *acervo, int id) {
