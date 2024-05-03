@@ -95,8 +95,15 @@ char pedirOpcaoMenu() {
     printf("   r  Renovar empréstimo\n");
     printf("   i  Listar empréstimos\n");
     printf("   s  Sair do programa\n");
-    char opcao;
-    scanf(" %c", &opcao);
+
+    char opcao = getchar(); // Read one character from stdin
+    int c;
+    while ((c = getchar()) != '\n' && c != EOF)
+        ;
+    if (opcao == EOF) {
+        printf(" ❌ acabou o input.\n");
+        exit(1);
+    }
     printf("\n");
     return tolower(opcao);
 }
