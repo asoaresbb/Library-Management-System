@@ -23,7 +23,7 @@ void test_emprestar() {
 void test_devolver() {
     Emprestimos emprestimos = {};
     emprestarLivro(&emprestimos, 123, 987);
-    sleep(1);
+    usleep(700000);
 
     bool devolvido = devolverLivro(&emprestimos, 123, 987);
 

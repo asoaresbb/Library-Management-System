@@ -7,7 +7,7 @@ char *readFile(char *filename);
 int main()
 {
     char path[1035];
-    FILE *fp = popen("echo '-\n78s' | ./cli.exe", "r");
+    FILE *fp = popen("echo '-78s' | ./cli.exe", "r");
     assert(fp);
 
     char output[5000] = "";
@@ -17,5 +17,6 @@ int main()
     assert(strstr(output, "Livro removido"));
 
     pclose(fp);
+    printf("✅  Testes de utilizador passaram com sucesso!");
     return 0;
 }
