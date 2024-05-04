@@ -16,6 +16,8 @@ void test_adicionar_livro();
 
 void test_remover_livro();
 
+void test_pesquisar_livro();
+
 void test_emprestar_livro();
 
 void test_devolver_livro();
@@ -23,6 +25,7 @@ void test_devolver_livro();
 int main() {
     test_adicionar_livro();
     test_remover_livro();
+    test_pesquisar_livro();
     test_emprestar_livro();
     test_devolver_livro();
     return 0;
@@ -52,6 +55,19 @@ void test_remover_livro() {
     assert(contemTexto(output, "A sair do programa..."));
 }
 
+void test_pesquisar_livro() {
+    char output[5000];
+
+    executarCli(output,
+                "p", "Luís", // pesquisar
+                "S",         // sair
+                NULL);
+
+    assert(regexCoincide(output,
+                         " [0-9]+: Linguagem C \\(Luís Damas\\)\n   literatura técnica\n[0-9]+: jQuery \\(Luís Soares\\)\n   literatura técnica"));
+    assert(contemTexto(output, "A sair do programa..."));
+}
+
 void test_emprestar_livro() {
     char output[5000];
 
@@ -60,8 +76,8 @@ void test_emprestar_livro() {
                 "I",             // listar empréstimos
                 "S", NULL);      // sair
 
-    assert(regexCoincide(output, 
-        "3      - Linguagem C               \\| 110        \\| [0-9]{4}-[0-9]{2}-[0-9]{2}    \\|  --------    \\| [0-9]{4}-[0-9]{2}-[0-9]{2}"));
+    assert(regexCoincide(output,
+                         "3      - Linguagem C               \\| 110        \\| [0-9]{4}-[0-9]{2}-[0-9]{2}    \\|  --------    \\| [0-9]{4}-[0-9]{2}-[0-9]{2}"));
     assert(contemTexto(output, "A sair do programa..."));
 }
 
@@ -73,8 +89,8 @@ void test_devolver_livro() {
                 "I",              // listar empréstimos
                 "S", NULL);       // sair
 
-    assert(regexCoincide(output, 
-        "12     - 1984                      \\| 115        \\| [0-9]{4}-[0-9]{2}-[0-9]{2}    \\| [0-9]{4}-[0-9]{2}-[0-9]{2}   \\|  --------"));
+    assert(regexCoincide(output,
+                         "12     - 1984                      \\| 115        \\| [0-9]{4}-[0-9]{2}-[0-9]{2}    \\| [0-9]{4}-[0-9]{2}-[0-9]{2}   \\|  --------"));
     assert(contemTexto(output, "A sair do programa..."));
 }
 
@@ -102,7 +118,7 @@ void executarCli(char *outputPrograma, ...) {
 
 bool contemTexto(const char *resultado, const char *texto) {
     bool contido = strstr(resultado, texto);
-    if (!contido) 
+    if (!contido)
         printf("%s\n", resultado);
     return contido;
 }
