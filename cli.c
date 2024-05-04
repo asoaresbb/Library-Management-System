@@ -44,7 +44,8 @@ int main() {
     printf("📖 📖 📖 📖 📖 📖 📖 📖 📖 📖 📖 📖 📖 📖\n");
 
     while (true) {
-        switch (pedirOpcaoMenu()) {
+        char opcao = pedirOpcaoMenu();
+        switch (opcao) {
             case '+':
                 trataAdicionarLivro(&acervo);
                 break;
@@ -78,7 +79,7 @@ int main() {
                 printf(" ✅ A sair do programa...\n");
                 return 0;
             default:
-                printf(" ⚠️ Opção inválida.\n");
+                printf(" ⚠️ Opção inválida %c.\n", opcao);
         }
     }
 }

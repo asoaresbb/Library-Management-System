@@ -4,38 +4,18 @@
 #include <assert.h>
 
 char *readFile(char *filename);
-
 int main()
 {
-    FILE *pipe = popen("./cli.exe > /tmp/test_output.txt", "w");
-    assert(pipe);
-    fprintf(pipe, "+\n"); // criar livro
-    fprintf(pipe, "Livro titulo\n");
-    fprintf(pipe, "autor123\n");
-    fprintf(pipe, "tecnico\n");
-    fprintf(pipe, "l\n"); // listar
-    fprintf(pipe, "q\n"); // sair
-    pclose(pipe);
+    char path[1035];
+    FILE *fp = popen("echo '-\n78s' | ./cli.exe", "r");
+    assert(fp);
 
-    char *content = readFile("/tmp/test_output.txt");
+    char output[5000] = "";
+    while (fgets(path, sizeof(path), fp) != NULL)
+        strcat(output, path);
 
-    // printf("content %s", content);
-    assert(strstr(content, ": Livro titulo (autor123)\n   tecnico"));
+    assert(strstr(output, "Livro removido"));
 
-    printf("✅ Testes de aceitação passaram com sucesso!");
+    pclose(fp);
     return 0;
-}
-
-char *readFile(char *filename)
-{
-    FILE *f = fopen(filename, "rt");
-    assert(f);
-    fseek(f, 0, SEEK_END);
-    long length = ftell(f);
-    fseek(f, 0, SEEK_SET);
-    char *buffer = (char *)malloc(length + 1);
-    buffer[length] = '\0';
-    fread(buffer, 1, length, f);
-    fclose(f);
-    return buffer;
 }
