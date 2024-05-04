@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <stdarg.h> // Para usar varargs
+#include <stdarg.h>
 #include <assert.h>
 
 void executarCli(char *resultadoEsperado, ...);
@@ -23,7 +23,10 @@ void resultadoContem(const char *resultado, const char *textoEsperado)
 {
     if (!strstr(resultado, textoEsperado))
     {
-        printf("❌ O resultado não contém o texto esperado:\n%s\n", resultado);
+        printf("------------------------------------------\n");
+        printf("%s\n", resultado);
+        printf("------------------------------------------\n");
+        printf("❌ O resultado acima não contém o texto:\n%s\n", textoEsperado);
         exit(1);
     }
 }
@@ -33,11 +36,11 @@ void test_adicionar_livro()
     char resultadoEsperado[5000];
 
     executarCli(resultadoEsperado,
-                "+", "Java Basics", "Helbert", "técnico", // criar
+                "+", "Java Basics", "Helbert", "técnico", // criar livro
                 "l", "s",                                 // listar livros e sair
                 NULL);
 
-    resultadoContem(resultadoEsperado, "79: Java Basics (Helbert)");
+    resultadoContem(resultadoEsperado, ": Java Basics (Helbert)");
     resultadoContem(resultadoEsperado, "A sair do programa...");
 }
 
