@@ -61,7 +61,8 @@ void test_emprestar_livro() {
                 "I",             // listar empréstimos
                 "S", NULL);      // sair
 
-    assert(regexCoincide(output, "3      - Linguagem C               \\| 110        \\| [0-9]{4}-[0-9]{2}-[0-9]{2}"));
+    assert(regexCoincide(output, 
+        "3      - Linguagem C               \\| 110        \\| [0-9]{4}-[0-9]{2}-[0-9]{2}    \\|  --------    \\| [0-9]{4}-[0-9]{2}-[0-9]{2}"));
     assert(contemTexto(output, "A sair do programa..."));
 }
 
@@ -73,7 +74,8 @@ void test_devolver_livro() {
                 "I",              // listar empréstimos
                 "S", NULL);       // sair
 
-    assert(regexCoincide(output, "12     - 1984                      \\| 115        \\| [0-9]{4}-[0-9]{2}-[0-9]{2}"));
+    assert(regexCoincide(output, 
+        "12     - 1984                      \\| 115        \\| [0-9]{4}-[0-9]{2}-[0-9]{2}    \\| [0-9]{4}-[0-9]{2}-[0-9]{2}   \\|  --------"));
     assert(contemTexto(output, "A sair do programa..."));
 }
 
