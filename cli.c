@@ -81,6 +81,8 @@ int main() {
             default:
                 printf(" ⚠️ Opção inválida %c.\n", opcao);
         }
+        while ((getchar()) != '\n')
+            ;
     }
 }
 
@@ -98,9 +100,6 @@ char pedirOpcaoMenu() {
     printf("   s  Sair do programa\n");
 
     char opcao = getchar(); // Read one character from stdin
-    int c;
-    while ((c = getchar()) != '\n' && c != EOF)
-        ;
     if (opcao == EOF) {
         printf(" ❌ acabou o input.\n");
         exit(1);
