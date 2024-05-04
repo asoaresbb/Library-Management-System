@@ -27,7 +27,7 @@ void test_adicionar_livro()
 
     executarCli(resultadoEsperado,
                 "+", "Java Basics", "Helbert", "técnico", // criar livro
-                "l", "s",                                 // listar livros e sair
+                "L", "s",                                 // listar livros e sair
                 NULL);
 
     assertRegexCoincide(resultadoEsperado, "[0-9]+: Java Basics \\(Helbert\\)");
@@ -40,7 +40,7 @@ void test_remover_livro()
 
     executarCli(resultadoEsperado,
                 "-", "78", // remover
-                "l", "s",  // listar livros e sair
+                "L", "s",  // listar livros e sair
                 NULL);
 
     assertContemTexto(resultadoEsperado, "Livro removido");
@@ -53,7 +53,7 @@ void test_emprestar_livro()
 
     executarCli(resultadoEsperado,
                 "m", "3", "103", // emprestar
-                "i", "s",        // listar empréstimos e sair
+                "I", "S",        // listar empréstimos e sair
                 NULL);
 
     assertContemTexto(resultadoEsperado, "3      - Linguagem C               | 103");
@@ -95,16 +95,16 @@ void assertContemTexto(const char *resultado, const char *texto)
     }
 }
 
-void assertRegexCoincide(const char *resultado, const char *regexPattern)
+void assertRegexCoincide(const char *resultado, const char *expressao)
 {
     regex_t regex;
-    assert(regcomp(&regex, regexPattern, REG_EXTENDED) != REG_NOMATCH);
+    assert(regcomp(&regex, expressao, REG_EXTENDED) != REG_NOMATCH);
     if (regexec(&regex, resultado, 0, NULL, 0))
     {
         printf("------------------------------------------\n");
         printf("%s\n", resultado);
         printf("------------------------------------------\n");
-        printf("❌ O resultado acima não contém o padrão:\n%s\n", regexPattern);
+        printf("❌ O resultado acima não contém a expressão:\n%s\n", expressao);
         exit(1);
     }
     regfree(&regex);
