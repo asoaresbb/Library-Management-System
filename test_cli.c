@@ -97,7 +97,7 @@ void executarCli(char *outputPrograma, ...) {
     char path[1000];
     while (fgets(path, sizeof(path), pipe))
         strcat(outputPrograma, path);
-    pclose(pipe);
+    assert(!pclose(pipe));
 }
 
 bool contemTexto(const char *resultado, const char *texto) {
@@ -111,9 +111,10 @@ bool regexCoincide(const char *text, const char *pattern) {
     regex_t regex;
     int compilada = regcomp(&regex, pattern, REG_EXTENDED);
     assert(compilada == 0);
-    int reti = regexec(&regex, text, 0, NULL, 0);
-    if (reti)
+    int resultado = regexec(&regex, text, 0, NULL, 0);
+    assert(resultado <= REG_NOMATCH);
+    if (resultado)
         printf("%s\n", text);
     regfree(&regex);
-    return reti == 0;
+    return resultado == 0;
 }
