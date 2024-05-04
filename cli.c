@@ -100,7 +100,7 @@ char pedirOpcaoMenu() {
 
     char opcao = getchar(); // Read one character from stdin
     if (opcao == EOF) {
-        printf(" ❌ acabou o input.\n");
+        printf(" ❌  Acabou o input.\n");
         exit(1);
     }
     printf("\n");

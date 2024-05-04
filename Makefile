@@ -1,4 +1,4 @@
-test:
+tests:
 	@gcc -Wall gestao_livros.c test_gestao_livros.c -o test_gestao_livros.exe
 	@./test_gestao_livros.exe
 
@@ -8,8 +8,12 @@ test:
 	@gcc -Wall test_cli.c -o test_cli.exe
 	@./test_cli.exe
 
-build: test
+build: tests
 	@gcc -Wall cli.c gestao_livros.c gestao_emprestimos.c -o cli.exe
 
 run: build
 	@./cli.exe
+
+userTests:
+	@gcc -Wall test_cli.c -o test_cli.exe
+	@./test_cli.exe
