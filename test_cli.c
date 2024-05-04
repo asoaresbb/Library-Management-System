@@ -6,8 +6,8 @@
 #include <regex.h>
 
 void executarCli(char *resultadoEsperado, ...);
-void resultadoContemTexto(const char *resultado, const char *texto);
-void resultadoContemRegex(const char *resultado, const char *regex);
+void assertContemTexto(const char *resultado, const char *texto);
+void assertRegexCoincide(const char *resultado, const char *regex);
 void test_adicionar_livro();
 void test_remover_livro();
 void test_emprestar_livro();
@@ -30,8 +30,8 @@ void test_adicionar_livro()
                 "l", "s",                                 // listar livros e sair
                 NULL);
 
-    resultadoContemRegex(resultadoEsperado, "[0-9]+: Java Basics \\(Helbert\\)");
-    resultadoContemTexto(resultadoEsperado, "A sair do programa...");
+    assertRegexCoincide(resultadoEsperado, "[0-9]+: Java Basics \\(Helbert\\)");
+    assertContemTexto(resultadoEsperado, "A sair do programa...");
 }
 
 void test_remover_livro()
@@ -43,8 +43,8 @@ void test_remover_livro()
                 "l", "s",  // listar livros e sair
                 NULL);
 
-    resultadoContemTexto(resultadoEsperado, "Livro removido");
-    resultadoContemTexto(resultadoEsperado, "A sair do programa...");
+    assertContemTexto(resultadoEsperado, "Livro removido");
+    assertContemTexto(resultadoEsperado, "A sair do programa...");
 }
 
 void test_emprestar_livro()
@@ -56,8 +56,8 @@ void test_emprestar_livro()
                 "i", "s",        // listar empréstimos e sair
                 NULL);
 
-    resultadoContemTexto(resultadoEsperado, "3      - Linguagem C               | 103");
-    resultadoContemTexto(resultadoEsperado, "A sair do programa...");
+    assertContemTexto(resultadoEsperado, "3      - Linguagem C               | 103");
+    assertContemTexto(resultadoEsperado, "A sair do programa...");
 }
 
 void executarCli(char *resultadoEsperado, ...)
@@ -82,7 +82,7 @@ void executarCli(char *resultadoEsperado, ...)
     pclose(pipe);
 }
 
-void resultadoContemTexto(const char *resultado, const char *texto)
+void assertContemTexto(const char *resultado, const char *texto)
 {
     if (!strstr(resultado, texto))
     {
@@ -94,7 +94,7 @@ void resultadoContemTexto(const char *resultado, const char *texto)
     }
 }
 
-void resultadoContemRegex(const char *resultado, const char *regexPattern)
+void assertRegexCoincide(const char *resultado, const char *regexPattern)
 {
     regex_t regex;
     assert(regcomp(&regex, regexPattern, REG_EXTENDED) != REG_NOMATCH);
