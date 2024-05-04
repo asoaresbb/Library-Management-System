@@ -5,12 +5,15 @@
 
 void LerEntrada(const char *comando, char *resultadoEsperado);
 
+void test_adicionar_livro();
+
 void test_remover_livro();
 
 void test_emprestar_livro();
 
 int main() {
-    //test_remover_livro();
+    test_adicionar_livro();
+    test_remover_livro();
     test_emprestar_livro();
     printf("✅  Testes de utilizador passaram com sucesso!\n");
     return 0;
@@ -25,6 +28,14 @@ void LerEntrada(const char *comando, char *resultadoEsperado) {
         strcat(resultadoEsperado, path);
     }
     pclose(fp);
+}
+
+void test_adicionar_livro() {
+    char resultadoEsperado[5000];
+    LerEntrada("echo '+\nJava Basics\nHelbert\ntécnico\nl\ns' | ./cli.exe", resultadoEsperado);
+    //printf("Conteúdo de resultado esperado:\n%s\n", resultadoEsperado);
+    assert(strstr(resultadoEsperado, "79: Java Basics (Helbert)"));
+    assert(strstr(resultadoEsperado, "A sair do programa..."));
 }
 
 void test_remover_livro() {
@@ -42,3 +53,5 @@ void test_emprestar_livro() {
     assert(strstr(resultadoEsperado, "3      - Linguagem C               | 103"));
     assert(strstr(resultadoEsperado, "A sair do programa..."));
 }
+
+
