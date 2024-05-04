@@ -4,12 +4,13 @@
 #include <stdarg.h>
 #include <assert.h>
 #include <regex.h>
+#include <stdbool.h>
 
 void executarCli(char *output, ...);
 
-void assertContemTexto(const char *resultado, const char *texto);
+bool contemTexto(const char *resultado, const char *texto);
 
-void assertRegexCoincide(const char *resultado, const char *regex);
+bool regexCoincide(const char *resultado, const char *regex);
 
 void test_adicionar_livro();
 
@@ -33,23 +34,23 @@ void test_adicionar_livro() {
 
     executarCli(output,
                 "+", "Java Basics", "Helbert", "técnico", // criar livro
-                "L", "s",                                 // listar livros e sair
-                NULL);
+                "L", "s",                                 // listar livros
+                NULL);                                    // sair
 
-    assertRegexCoincide(output, "[0-9]+: Java Basics \\(Helbert\\)");
-    assertContemTexto(output, "A sair do programa...");
+    assert(regexCoincide(output, "[0-9]+: Java Basics \\(Helbert\\)"));
+    assert(contemTexto(output, "A sair do programa..."));
 }
 
 void test_remover_livro() {
     char output[5000];
 
     executarCli(output,
-                "-", "78", // remover
-                "L", "s",  // listar livros e sair
-                NULL);
+                "-", "78",  // remover livro
+                "L",        // listar livros
+                "s", NULL); // sair
 
-    assertContemTexto(output, "Livro removido");
-    assertContemTexto(output, "A sair do programa...");
+    assert(contemTexto(output, "Livro removido"));
+    assert(contemTexto(output, "A sair do programa..."));
 }
 
 void test_emprestar_livro() {
@@ -57,11 +58,11 @@ void test_emprestar_livro() {
 
     executarCli(output,
                 "m", "3", "110", // emprestar
-                "I", "S",        // listar empréstimos e sair
-                NULL);
+                "I",             // listar empréstimos
+                "S", NULL);      // sair
 
-    assertRegexCoincide(output, "3      - Linguagem C               | 110        | \\d{4}-\\d{2}-\\d{2}");
-    assertContemTexto(output, "A sair do programa...");
+    assert(regexCoincide(output, "3      - Linguagem C               \\| 110        \\| [0-9]{4}-[0-9]{2}-[0-9]{2}"));
+    assert(contemTexto(output, "A sair do programa..."));
 }
 
 void test_devolver_livro() {
@@ -69,11 +70,11 @@ void test_devolver_livro() {
 
     executarCli(output,
                 "d", "12", "115", // devolver
-                "I", "S",        // listar empréstimos e sair
-                NULL);
+                "I",              // listar empréstimos
+                "S", NULL);       // sair
 
-    assertRegexCoincide(output, "12     - 1984                      | 115        | \\d{4}-\\d{2}-\\d{2}");
-    assertContemTexto(output, "A sair do programa...");
+    assert(regexCoincide(output, "12     - 1984                      \\| 115        \\| [0-9]{4}-[0-9]{2}-[0-9]{2}"));
+    assert(contemTexto(output, "A sair do programa..."));
 }
 
 void executarCli(char *outputPrograma, ...) {
@@ -98,25 +99,20 @@ void executarCli(char *outputPrograma, ...) {
     pclose(pipe);
 }
 
-void assertContemTexto(const char *resultado, const char *texto) {
-    if (!strstr(resultado, texto)) {
-        printf("------------------------------------------\n");
+bool contemTexto(const char *resultado, const char *texto) {
+    bool contido = strstr(resultado, texto);
+    if (!contido) 
         printf("%s\n", resultado);
-        printf("------------------------------------------\n");
-        printf("❌  O resultado acima não contém o texto:\n%s\n", texto);
-        exit(1);
-    }
+    return contido;
 }
 
-void assertRegexCoincide(const char *resultado, const char *expressao) {
+bool regexCoincide(const char *text, const char *pattern) {
     regex_t regex;
-    assert(regcomp(&regex, expressao, REG_EXTENDED) != REG_NOMATCH);
-    if (regexec(&regex, resultado, 0, NULL, 0)) {
-        printf("------------------------------------------\n");
-        printf("%s\n", resultado);
-        printf("------------------------------------------\n");
-        printf("❌  O resultado acima não contém a expressão:\n%s\n", expressao);
-        exit(1);
-    }
+    int compilada = regcomp(&regex, pattern, REG_EXTENDED);
+    assert(compilada == 0);
+    int reti = regexec(&regex, text, 0, NULL, 0);
+    if (reti)
+        printf("%s\n", text);
     regfree(&regex);
+    return reti == 0;
 }
