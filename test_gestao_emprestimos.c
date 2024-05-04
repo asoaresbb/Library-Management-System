@@ -1,7 +1,6 @@
 #include <stdio.h>
 #include "gestao_emprestimos.h"
 #include <assert.h>
-#include <unistd.h>
 #include <stdbool.h>
 
 #define QUINZE_DIAS_EM_SEGUNDOS (15 * 24 * 60 * 60) // criada novamente para reduzir acoplamento entre testes e implementação
