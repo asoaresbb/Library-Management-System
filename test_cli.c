@@ -3,7 +3,7 @@
 #include <string.h>
 #include <assert.h>
 
-void LerEntrada(const char *comando, char *resultadoEsperado);
+void executarCli(const char *comando, char *resultadoEsperado);
 
 void test_adicionar_livro();
 
@@ -19,11 +19,23 @@ int main() {
     return 0;
 }
 
-void LerEntrada(const char *comando, char *resultadoEsperado) {
-    char path[1035];
-    FILE *fp = popen(comando, "r");
+void resultadoContem(const char *resultado, const char *textoEsperado)
+{
+    if (!strstr(resultado, textoEsperado))
+    {
+        printf("%s\n", resultado);
+        printf("❌ O resultado não contém o texto:\n%s\n", textoEsperado);
+        exit(1);
+    }
+}
+
+void executarCli(const char *comando, char *resultadoEsperado) {
+    char comandoComExecutavel[1035];
+    sprintf(comandoComExecutavel, "echo '%s' | ./cli.exe", comando);
+    FILE *fp = popen(comandoComExecutavel, "r");
     assert(fp);
     resultadoEsperado[0] = '\0'; // Inicializa a string vazia
+    char path[1035];
     while (fgets(path, sizeof(path), fp) != NULL) {
         strcat(resultadoEsperado, path);
     }
@@ -32,26 +44,29 @@ void LerEntrada(const char *comando, char *resultadoEsperado) {
 
 void test_adicionar_livro() {
     char resultadoEsperado[5000];
-    LerEntrada("echo '+\nJava Basics\nHelbert\ntécnico\nl\ns' | ./cli.exe", resultadoEsperado);
-    //printf("Conteúdo de resultado esperado:\n%s\n", resultadoEsperado);
-    assert(strstr(resultadoEsperado, "79: Java Basics (Helbert)"));
-    assert(strstr(resultadoEsperado, "A sair do programa..."));
+    
+    executarCli("+\nJava Basics\nHelbert\ntécnico\nl\ns", resultadoEsperado);
+
+    resultadoContem(resultadoEsperado, "79: Java Basics (Helbert)");
+    resultadoContem(resultadoEsperado, "A sair do programa...");
 }
 
 void test_remover_livro() {
     char resultadoEsperado[5000];
-    LerEntrada("echo '-\n78\nl\ns' | ./cli.exe", resultadoEsperado);
-    //printf("Conteúdo de resultado esperado:\n%s\n", resultadoEsperado);
-    assert(strstr(resultadoEsperado, "Livro removido"));
-    assert(strstr(resultadoEsperado, "A sair do programa..."));
+    
+    executarCli("-\n78\nl\ns", resultadoEsperado);
+
+    resultadoContem(resultadoEsperado, "Livro removido");
+    resultadoContem(resultadoEsperado, "A sair do programa...");
 }
 
 void test_emprestar_livro() {
     char resultadoEsperado[5000];
-    LerEntrada("echo 'm\n3\n103\ni\ns' | ./cli.exe", resultadoEsperado);
-    //printf("Conteúdo de resultado esperado:\n%s\n", resultadoEsperado);
-    assert(strstr(resultadoEsperado, "3      - Linguagem C               | 103"));
-    assert(strstr(resultadoEsperado, "A sair do programa..."));
+    
+    executarCli("m\n3\n103\ni\ns", resultadoEsperado);
+
+    resultadoContem(resultadoEsperado, "3      - Linguagem C               | 103");
+    resultadoContem(resultadoEsperado, "A sair do programa...");
 }
 
 
