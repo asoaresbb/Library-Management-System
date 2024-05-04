@@ -62,7 +62,7 @@ void test_emprestar_livro()
 
 void executarCli(char *resultadoEsperado, ...)
 {
-    // prepara comandos
+    // prepara comandos: converte ["m","3","103","S"] em "m\n3\n103\nS"
     va_list comandosUt;
     va_start(comandosUt, resultadoEsperado);
     char comandosUtComNewline[300] = "";
@@ -70,7 +70,7 @@ void executarCli(char *resultadoEsperado, ...)
     while ((arg = va_arg(comandosUt, char *)) != NULL)
         sprintf(comandosUtComNewline + strlen(comandosUtComNewline), "%s\n", arg);
     va_end(comandosUt);
-    // executa programa
+    // executa programa: converte "m\n3\n103\nS" em "echo '"m\n3\n103\nS"' | cli ./cli.exe" e corre
     char comandoComExecutavel[320] = "";
     sprintf(comandoComExecutavel, "echo '%s' | ./cli.exe", comandosUtComNewline);
     FILE *pipe = popen(comandoComExecutavel, "r");
