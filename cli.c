@@ -156,12 +156,12 @@ void trataEditarLivro(Acervo *acervo) {
     }
 
     Livro *livroEditado = obterLivro(acervo, id);
-    if (livroEditado == NULL) {
+    if (!livroEditado) {
         printf(" ⚠️ O livro com id. %d não existe.\n", id);
         return;
     }
-    char textoLido[100]; // Tamanho máximo da linha a ser lida
 
+    char textoLido[100]; // Tamanho máximo da linha a ser lida
     printf(" 📝 Escreva o novo título (escreva . para manter %s): ", livroEditado->titulo);
     scanf(" %39[^\n]", textoLido);
     if (strcmp(textoLido, ".") != 0)
@@ -206,10 +206,9 @@ void trataEmprestarLivro(Acervo acervo, Emprestimos *emprestimos) {
     int idLivro;
     if (scanf(" %d", &idLivro) != 1) { // Se não foi possível ler um inteiro
         printf("  ❌  Id. de livro inválido. Por favor, insira um número inteiro.\n");
-        // Limpa o buffer de entrada para evitar loops infinitos
         return;
     }
-    if (obterLivro(&acervo, idLivro) == NULL) {
+    if (!obterLivro(&acervo, idLivro)) {
         printf(" ⚠️ O livro com id. %d não existe.\n", idLivro);
         return;
     }
@@ -217,7 +216,6 @@ void trataEmprestarLivro(Acervo acervo, Emprestimos *emprestimos) {
     int idUtilizador;
     if (scanf(" %d", &idUtilizador) != 1) { // Se não foi possível ler um inteiro
         printf("  ❌  Id. do utilizador inválido. Por favor, insira um número inteiro.\n");
-        // Limpa o buffer de entrada para evitar loops infinitos
         return;
     }
     // TODO verificar que ainda existe exemplares disponiveis para emprestar
@@ -229,7 +227,6 @@ void trataDevolverLivro(Acervo acervo, Emprestimos *emprestimos) {
     int idLivro;
     if (scanf(" %d", &idLivro) != 1) { // Se não foi possível ler um inteiro
         printf(" ❌  Id. de livro inválido. Por favor, insira um número inteiro.\n");
-        // Limpa o buffer de entrada para evitar loops infinitos
         return;
     }
     if (obterLivro(&acervo, idLivro) == NULL) {

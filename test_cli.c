@@ -33,8 +33,8 @@ void test_adicionar_livro() {
 
     executarCli(output,
                 "+", "Java Basics", "Helbert", "técnico", // criar livro
-                "L", "s",                                 // listar livros
-                NULL);                                    // sair
+                "L",                                      // listar livros
+                "s", NULL);                               // sair
 
     assert(regexCoincide(output, "[0-9]+: Java Basics \\(Helbert\\)"));
     assert(contemTexto(output, "A sair do programa..."));
