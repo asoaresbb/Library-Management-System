@@ -62,19 +62,20 @@ void test_emprestar_livro()
 
 void executarCli(char *resultadoEsperado, ...)
 {
-    va_list textosUtilizador;
-    va_start(textosUtilizador, resultadoEsperado);
-    char comandoComExecutavel[1035];
-    char comando[5000] = "";
+    // prepara comandos
+    va_list comandosUt;
+    va_start(comandosUt, resultadoEsperado);
+    char comandosUtComNewline[5000] = "";
     char *arg;
-    // envia comandos
-    while ((arg = va_arg(textosUtilizador, char *)) != NULL)
-        sprintf(comando + strlen(comando), "%s\n", arg);
-    va_end(textosUtilizador);
-    sprintf(comandoComExecutavel, "echo '%s' | ./cli.exe", comando);
-    // coleta output do programa com um pipe de leitura
+    while ((arg = va_arg(comandosUt, char *)) != NULL)
+        sprintf(comandosUtComNewline + strlen(comandosUtComNewline), "%s\n", arg);
+    va_end(comandosUt);
+    // executa programa
+    char comandoComExecutavel[1035];
+    sprintf(comandoComExecutavel, "echo '%s' | ./cli.exe", comandosUtComNewline);
     FILE *pipe = popen(comandoComExecutavel, "r");
     assert(pipe);
+    // coleta output (com um pipe de leitura)
     resultadoEsperado[0] = '\0';
     char path[1000];
     while (fgets(path, sizeof(path), pipe))
