@@ -5,7 +5,7 @@
 #include <assert.h>
 #include <regex.h>
 
-void executarCli(char *resultadoEsperado, ...);
+void executarCli(char *output, ...);
 void assertContemTexto(const char *resultado, const char *texto);
 void assertRegexCoincide(const char *resultado, const char *regex);
 void test_adicionar_livro();
@@ -23,48 +23,48 @@ int main()
 
 void test_adicionar_livro()
 {
-    char resultadoEsperado[5000];
+    char output[5000];
 
-    executarCli(resultadoEsperado,
+    executarCli(output,
                 "+", "Java Basics", "Helbert", "técnico", // criar livro
                 "L", "s",                                 // listar livros e sair
                 NULL);
 
-    assertRegexCoincide(resultadoEsperado, "[0-9]+: Java Basics \\(Helbert\\)");
-    assertContemTexto(resultadoEsperado, "A sair do programa...");
+    assertRegexCoincide(output, "[0-9]+: Java Basics \\(Helbert\\)");
+    assertContemTexto(output, "A sair do programa...");
 }
 
 void test_remover_livro()
 {
-    char resultadoEsperado[5000];
+    char output[5000];
 
-    executarCli(resultadoEsperado,
+    executarCli(output,
                 "-", "78", // remover
                 "L", "s",  // listar livros e sair
                 NULL);
 
-    assertContemTexto(resultadoEsperado, "Livro removido");
-    assertContemTexto(resultadoEsperado, "A sair do programa...");
+    assertContemTexto(output, "Livro removido");
+    assertContemTexto(output, "A sair do programa...");
 }
 
 void test_emprestar_livro()
 {
-    char resultadoEsperado[5000];
+    char output[5000];
 
-    executarCli(resultadoEsperado,
+    executarCli(output,
                 "m", "3", "103", // emprestar
                 "I", "S",        // listar empréstimos e sair
                 NULL);
 
-    assertContemTexto(resultadoEsperado, "3      - Linguagem C               | 103");
-    assertContemTexto(resultadoEsperado, "A sair do programa...");
+    assertContemTexto(output, "3      - Linguagem C               | 103");
+    assertContemTexto(output, "A sair do programa...");
 }
 
-void executarCli(char *resultadoEsperado, ...)
+void executarCli(char *outputPrograma, ...)
 {
     // prepara comandos: converte ["m","3","103","S"] em "m\n3\n103\nS"
     va_list comandosUt;
-    va_start(comandosUt, resultadoEsperado);
+    va_start(comandosUt, outputPrograma);
     char comandosUtComNewline[300] = "";
     char *arg;
     while ((arg = va_arg(comandosUt, char *)) != NULL)
@@ -75,11 +75,11 @@ void executarCli(char *resultadoEsperado, ...)
     sprintf(comandoComExecutavel, "echo '%s' | ./cli.exe", comandosUtComNewline);
     FILE *pipe = popen(comandoComExecutavel, "r");
     assert(pipe);
-    // coleta output (com um pipe de leitura)
-    resultadoEsperado[0] = '\0';
+    // coleta output do programa (com um pipe de leitura)
+    outputPrograma[0] = '\0';
     char path[1000];
     while (fgets(path, sizeof(path), pipe))
-        strcat(resultadoEsperado, path);
+        strcat(outputPrograma, path);
     pclose(pipe);
 }
 
