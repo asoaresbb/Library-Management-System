@@ -65,13 +65,13 @@ void executarCli(char *resultadoEsperado, ...)
     // prepara comandos
     va_list comandosUt;
     va_start(comandosUt, resultadoEsperado);
-    char comandosUtComNewline[5000] = "";
+    char comandosUtComNewline[300] = "";
     char *arg;
     while ((arg = va_arg(comandosUt, char *)) != NULL)
         sprintf(comandosUtComNewline + strlen(comandosUtComNewline), "%s\n", arg);
     va_end(comandosUt);
     // executa programa
-    char comandoComExecutavel[1035];
+    char comandoComExecutavel[320] = "";
     sprintf(comandoComExecutavel, "echo '%s' | ./cli.exe", comandosUtComNewline);
     FILE *pipe = popen(comandoComExecutavel, "r");
     assert(pipe);
