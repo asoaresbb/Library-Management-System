@@ -76,13 +76,12 @@ int main() {
             case 's':
                 libertarMemoriaAcervo(&acervo);
                 libertarMemoriaEmprestimos(&emprestimos);
-                printf(" ✅ A sair do programa...\n");
+                printf(" ✅  A sair do programa...\n");
                 return 0;
             default:
                 printf(" ⚠️ Opção inválida %c.\n", opcao);
         }
-        while ((getchar()) != '\n')
-            ;
+        while ((getchar()) != '\n');
     }
 }
 
