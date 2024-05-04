@@ -79,6 +79,4 @@ int main() {
     test_remover_livro();
     test_remover_livro_ids_nao_repetem();
     test_pesquisar_livros();
-
-    printf("✅  Testes unitários da gestao_livros.c passaram com sucesso!\n");
 }

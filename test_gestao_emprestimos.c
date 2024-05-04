@@ -110,6 +110,4 @@ int main() {
     test_devolver_mesmo_livro_2vezes();
     test_renovar();
     test_renovar_ja_devolvido();
-
-    printf("✅  Testes unitários da emprestimos_livros.c passaram com sucesso!\n");
 }

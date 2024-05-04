@@ -25,7 +25,6 @@ int main() {
     test_remover_livro();
     test_emprestar_livro();
     test_devolver_livro();
-    printf("✅  Testes de utilizador passaram com sucesso!\n");
     return 0;
 }
 
