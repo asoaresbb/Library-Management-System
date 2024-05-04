@@ -23,7 +23,7 @@ void test_emprestar() {
 void test_devolver() {
     Emprestimos emprestimos = {};
     emprestarLivro(&emprestimos, 123, 987);
-    usleep(700000);
+    while (time(NULL) == emprestimos.lista[0].data);
 
     bool devolvido = devolverLivro(&emprestimos, 123, 987);
 
