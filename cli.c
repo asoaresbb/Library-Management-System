@@ -4,6 +4,9 @@
 #include <ctype.h>
 #include "gestao_livros.h"
 #include "gestao_emprestimos.h"
+#define VERDE "\033[1;32m"
+#define AMARELO "\033[1;33m"
+#define OMISSAO "\033[0m"
 
 char pedirOpcaoMenu();
 
@@ -39,9 +42,11 @@ int main() {
         return 1;
     }
 
-    printf("\n📖 📖 📖 📖 📖 📖 📖 📖 📖 📖 📖 📖 📖 📖\n");
-    printf("📖 📖 📖  GESTOR DE BIBLIOTECA   📖 📖 📖 \n");
-    printf("📖 📖 📖 📖 📖 📖 📖 📖 📖 📖 📖 📖 📖 📖\n");
+    printf("\n" VERDE);
+    printf("╔══════════════════════════════════════════╗\n");
+    printf("║          " AMARELO "📚 GESTOR DE BIBLIOTECA 📚" VERDE "      ║\n");
+    printf("╚══════════════════════════════════════════╝\n");
+    printf(OMISSAO "\n");
 
     while (true) {
         char opcao = pedirOpcaoMenu();
