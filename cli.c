@@ -4,6 +4,7 @@
 #include <ctype.h>
 #include "gestao_livros.h"
 #include "gestao_emprestimos.h"
+
 #define VERDE "\033[1;32m"
 #define AMARELO "\033[1;33m"
 #define NEGRITO "\033[1m"
@@ -45,9 +46,9 @@ int main() {
     }
 
     printf("\n" VERDE);
-    printf("╔══════════════════════════════════════════╗\n");
-    printf("║          " AMARELO "📚 GESTOR DE BIBLIOTECA 📚" VERDE "      ║\n");
-    printf("╚══════════════════════════════════════════╝\n");
+    printf("╔═════════════════════════════════════════════╗\n");
+    printf("║          " AMARELO "📚 GESTOR DE BIBLIOTECA 📚" VERDE "         ║\n");
+    printf("╚═════════════════════════════════════════════╝\n");
     printf(OMISSAO "\n");
 
     while (true) {
