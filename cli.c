@@ -6,6 +6,8 @@
 #include "gestao_emprestimos.h"
 #define VERDE "\033[1;32m"
 #define AMARELO "\033[1;33m"
+#define NEGRITO "\033[1m"
+#define SUBLINHADO "\033[4m"
 #define OMISSAO "\033[0m"
 
 char pedirOpcaoMenu();
@@ -91,7 +93,7 @@ int main() {
 }
 
 char pedirOpcaoMenu() {
-    printf("\n\n 📝 Escolha uma opção:\n");
+    printf(NEGRITO "\n 📝 Escolha uma opção:\n" OMISSAO);
     printf("   +  Adicionar livro\n");
     printf("   -  Remover livro\n");
     printf("   e  Editar livro\n");
