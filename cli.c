@@ -40,7 +40,7 @@ int main() {
     }
 
     printf("\n📖 📖 📖 📖 📖 📖 📖 📖 📖 📖 📖 📖 📖 📖\n");
-    printf("📖 📖 📖  Gestor de Bibilioteca  📖 📖 📖 \n");
+    printf("📖 📖 📖  GESTOR DE BIBLIOTECA   📖 📖 📖 \n");
     printf("📖 📖 📖 📖 📖 📖 📖 📖 📖 📖 📖 📖 📖 📖\n");
 
     while (true) {
