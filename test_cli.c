@@ -62,8 +62,8 @@ void test_editar_livro() {
     char output[5000];
 
     executarCli(output,
-                "e", "33",                    // editar
-                ".", ".", "testeAlteração",   // editar
+                "e", "33",                    // editar livro
+                ".", ".", "testeAlteração",   // alterar genero
                 "L",                          // listar livros
                 "S",                          // sair
                 NULL);
