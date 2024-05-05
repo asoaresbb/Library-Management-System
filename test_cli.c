@@ -62,14 +62,14 @@ void test_editar_livro() {
     char output[5000];
 
     executarCli(output,
-                "e", "33",                    // pesquisar
-                ".", ".", "informática",      // editar
+                "e", "33",                    // editar
+                ".", ".", "testeAlteração",   // editar
                 "L",                          // listar livros
                 "S",                          // sair
                 NULL);
 
     assert(contemTexto(output, ": Dom Casmurro (Machado de Assis)"));
-    assert(contemTexto(output, "romance"));
+    assert(contemTexto(output, "testeAlteração"));
     assert(contemTexto(output, "A sair do programa..."));
 }
 
