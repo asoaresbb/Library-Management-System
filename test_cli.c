@@ -68,6 +68,7 @@ void test_editar_livro() {
                 "S",                          // sair
                 NULL);
 
+    assert(contemTexto(output, ": Dom Casmurro (Machado de Assis)"));
     assert(contemTexto(output, "romance"));
     assert(contemTexto(output, "A sair do programa..."));
 }
