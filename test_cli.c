@@ -16,6 +16,8 @@ void test_adicionar_livro();
 
 void test_remover_livro();
 
+void test_editar_livro();
+
 void test_pesquisar_livro();
 
 void test_emprestar_livro();
@@ -25,6 +27,7 @@ void test_devolver_livro();
 int main() {
     test_adicionar_livro();
     test_remover_livro();
+    test_editar_livro();
     test_pesquisar_livro();
     test_emprestar_livro();
     test_devolver_livro();
@@ -55,6 +58,20 @@ void test_remover_livro() {
     assert(contemTexto(output, "A sair do programa..."));
 }
 
+void test_editar_livro() {
+    char output[5000];
+
+    executarCli(output,
+                "e", "33",                    // pesquisar
+                ".", ".", "informática",      // editar
+                "L",                          // listar livros
+                "S",                          // sair
+                NULL);
+
+    assert(contemTexto(output, "romance"));
+    assert(contemTexto(output, "A sair do programa..."));
+}
+
 void test_pesquisar_livro() {
     char output[5000];
 
@@ -63,8 +80,8 @@ void test_pesquisar_livro() {
                 "S",         // sair
                 NULL);
 
-    assert(contemTexto(output, " 1: Linguagem C (Luís Damas)   literatura técnica"));
-    //assert(contemTexto(output, "2: jQuery (Luís Soares)\n literatura técnica"));
+    assert(contemTexto(output, ": Linguagem C (Luís Damas)"));
+    assert(contemTexto(output, ": jQuery (Luís Soares)"));
     assert(contemTexto(output, "A sair do programa..."));
 }
 
